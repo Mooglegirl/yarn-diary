@@ -1,0 +1,20 @@
+.PageWithSidebar {
+	align-items: flex-start;
+	display: flex;
+
+	&__content {
+		flex-grow: 1;
+	}
+
+	&__sidebar {
+		border: 1px solid gray;
+		border-radius: 5px;
+		display: flex;
+		flex-basis: 200px;
+		flex-direction: column;
+		float: right;
+		justify-content: flex-start;
+		margin-left: 15px;
+		padding: 15px;
+	}
+}

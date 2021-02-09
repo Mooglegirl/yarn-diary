@@ -1,5 +1,4 @@
-import {nanoid} from "nanoid";
-import {createSelector, createSlice, createEntityAdapter} from "@reduxjs/toolkit";
+import {createSelector, createSlice, createEntityAdapter, nanoid} from "@reduxjs/toolkit";
 
 const yarnsAdapter = createEntityAdapter();
 const initialState = yarnsAdapter.getInitialState();
@@ -8,23 +7,35 @@ const yarnsSlice = createSlice({
 	name: "yarns",
 	initialState: initialState,
 	reducers: {
-		yarnAdded: {
-			prepare(brand, name) {
-				return { 
-					payload: {
-						id: nanoid(),
-						brand,
-						name,
-						comment: ""
+		yarnAddModalSubmitted: {
+			prepare: (brand, name, comment) => ({ 
+				payload: {
+					id: nanoid(),
+					brand,
+					name,
+					comment: comment,
+					dateAdded: new Date().toISOString(),
+					lastUpdated: new Date().toISOString()
+				}
+			}),
+			reducer: yarnsAdapter.addOne
+		},
+		yarnEditModalSubmitted: {
+			prepare: (id, changes) => ({
+				payload: {
+					id,
+					changes: {
+						...changes,
+						lastUpdated: new Date().toISOString()
 					}
 				}
-			},
-			reducer: yarnsAdapter.addOne
+			}),
+			reducer: yarnsAdapter.updateOne
 		}
 	}
 });
 
-export const {yarnAdded} = yarnsSlice.actions;
+export const {yarnAddModalSubmitted, yarnEditModalSubmitted} = yarnsSlice.actions;
 export default yarnsSlice.reducer;
 
 export const {

@@ -1,3 +1,32 @@
+$gutter: 10px;
+
 .YarnCard {
-	
+	border: 1px solid gray;
+	border-radius: 5px;
+	flex-basis: 21%;
+	flex-grow: 1;
+	margin: 0 $gutter $gutter 0;
+
+	max-width: calc(25% - #{$gutter});
+
+	&:nth-child(4n) {
+		margin-right: 0;
+	}
+
+	&__name {
+		background-color: rgba(0, 0, 0, 0.05);
+		border-bottom: 1px solid gray;
+		display: block;
+		font-weight: 500;
+		padding: 8px;
+	}
+
+	&__colorways {
+		padding: 8px;
+	}
+
+	&__comment {
+		border-top: 1px solid gray;
+		padding: 8px;
+	}
 }

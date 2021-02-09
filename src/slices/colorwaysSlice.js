@@ -1,5 +1,4 @@
-import {nanoid} from "nanoid";
-import {createSlice, createEntityAdapter} from "@reduxjs/toolkit";
+import {createSlice, createEntityAdapter, nanoid, createSelector} from "@reduxjs/toolkit";
 
 const colorwaysAdapter = createEntityAdapter();
 const initialState = colorwaysAdapter.getInitialState();
@@ -8,14 +7,16 @@ const colorwaysSlice = createSlice({
 	name: "colorways",
 	initialState: initialState,
 	reducers: {
-		colorwayAdded: {
-			prepare(yarnID, name) {
+		colorwayAddModalSubmitted: {
+			prepare(yarnID, name, comment) {
 				return {
 					payload: {
 						id: nanoid(),
 						yarnID,
 						name,
-						comment: ""
+						comment: comment,
+						dateAdded: new Date().toISOString(),
+						lastUpdated: new Date().toISOString()
 					}
 				}
 			},
@@ -24,24 +25,15 @@ const colorwaysSlice = createSlice({
 	}
 });
 
-export const {colorwayAdded} = colorwaysSlice.actions;
+export const {colorwayAddModalSubmitted} = colorwaysSlice.actions;
 export default colorwaysSlice.reducer;
 
-// regular selector
-// can't memoize due to needing the yarnID param
-// if performance is a concern, could move this into YarnCard and use the prop instead
-export const selectColorwaysByYarnID = (state, yarnID) => {
-	const colorwayIDs = Object.keys(state.colorways.entities).filter(colorwayID => {
-		return parseInt(state.colorways.entities[colorwayID].yarnID) === parseInt(yarnID);
-	});
+export const {
+	selectAll: selectAllColorways
+} = colorwaysAdapter.getSelectors(state => state.colorways);
 
-	const result = [];
-	colorwayIDs.forEach(colorwayID => {
-		result.push({
-			id: colorwayID,
-			...state.colorways.entities[colorwayID]
-		});
-	});
-
-	return result;
-};
+export const selectColorwaysByYarnID = createSelector(
+	selectAllColorways,
+	(state, yarnID) => yarnID, // pass through yarnID param
+	(colorways, yarnID) => colorways.filter(c => c.yarnID === yarnID)
+);

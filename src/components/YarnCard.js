@@ -1,20 +1,25 @@
 import {useSelector} from "react-redux";
-import "./YarnCard.scss";
+import {Link} from "react-router-dom";
 
 import {selectYarnByID} from "../slices/yarnsSlice";
-import {selectColorwaysByYarnID} from "../slices/colorwaysSlice";
+
+import "./YarnCard.scss";
+import ColorwayList from "./ColorwayList";
 
 export default function YarnCard(props) {
 	const yarnID = props.id;
 	const yarn = useSelector(state => selectYarnByID(state, yarnID));
-	const colorways = useSelector(state => selectColorwaysByYarnID(state, yarnID));
 
 	return (
-		<li className="YarnCard">
-			{yarn.brand} {yarn.name}
-			<ul>
-				{colorways.map(colorway => <li key={colorway.id}>{colorway.name}</li>)}
-			</ul>
-		</li>
+		<div className="YarnCard">
+			<Link className="YarnCard__name" to={`/yarns/${yarnID}`}>{yarn.brand} {yarn.name}</Link>
+			<div className="YarnCard__colorways">
+				<span>Colorways: </span>
+				<ColorwayList yarnID={yarnID} />
+			</div>
+			{!!yarn.comment && (
+				<div className="YarnCard__comment">{yarn.comment}</div>
+			)}
+		</div>
 	);
 }

@@ -1,6 +1,4 @@
 .YarnList {
-	&__loader {
-		color: gray;
-		font-style: italic;
-	}
+	display: flex;
+	flex-wrap: wrap;
 }

@@ -3,5 +3,9 @@
   margin: 0 auto;
   padding: 15px;
 
-  max-width: 1024px;
+  max-width: 1200px;
+
+  .has-error {
+  	border: 1px solid red;
+  }
 }

@@ -1,45 +1,35 @@
-import { useInputValues } from "../extras/utils";
-import { useDispatch } from "react-redux";
+import {useDispatch} from "react-redux";
+import {BrowserRouter as Router, Switch, Route} from "react-router-dom";
 
-import {yarnAdded} from "../slices/yarnsSlice";
 import {yarnNameSortToggled} from "../slices/sortsSlice";
 
 import "./App.scss";
 import YarnList from "./YarnList";
+import YarnPage from "./YarnPage";
+import YarnAddWidget from "./YarnAddWidget";
 
 function App(props) {
   const dispatch = useDispatch();
-  const [inputValues, setInputValues, handleInputChange] = useInputValues({
-    yarnBrand: "",
-    yarnName: ""
-  });
-
-	const handleAddBtnClick = () => {
-    dispatch(yarnAdded(inputValues.yarnBrand, inputValues.yarnName));
-    setInputValues({
-      yarnBrand: "",
-      yarnName: ""
-    });
-	};
 
 	const handleYarnSortClick = () => {
     dispatch(yarnNameSortToggled());
 	};
 
   return (
-    <div className="App">
-    	<YarnList />
-      <label>
-      	Brand
-      	<input type="text" name="yarnBrand" onChange={handleInputChange} value={inputValues.yarnBrand} />
-      </label>
-      <label>
-      	Name
-      	<input type="text" name="yarnName" onChange={handleInputChange} value={inputValues.yarnName} />
-      </label>
-      <button onClick={handleAddBtnClick}>Add Yarn</button><br/>
-      <button onClick={handleYarnSortClick}>Toggle Yarn Name Sort</button>
-    </div>
+    <Router>
+      <div className="App">
+      	<Switch>
+          <Route exact path="/">
+            <YarnAddWidget />
+            <YarnList />
+            <button onClick={handleYarnSortClick}>Toggle Yarn Name Sort</button>
+          </Route>
+          <Route path="/yarns/:yarnID">
+            <YarnPage />
+          </Route>
+        </Switch>
+      </div>
+    </Router>
   );
 }
 
