@@ -1,6 +1,6 @@
 import {useDispatch, useSelector} from "react-redux";
 
-import {modalClosed, selectModalStateByName} from "../slices/modalsSlice";
+import {modalClosed, selectModalStateByName} from "../../slices/modalsSlice";
 
 import "./Modal.scss";
 

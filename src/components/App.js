@@ -1,32 +1,20 @@
-import {useDispatch} from "react-redux";
 import {BrowserRouter as Router, Switch, Route} from "react-router-dom";
 
-import {yarnNameSortToggled} from "../slices/sortsSlice";
-
 import "./App.scss";
-import YarnList from "./YarnList";
-import YarnPage from "./YarnPage";
-import YarnAddWidget from "./YarnAddWidget";
+import HomePage from "./general//HomePage";
+import YarnPage from "./yarns/YarnPage";
+import ColorwayPage from "./colorways/ColorwayPage";
+import Navbar from "./general/Navbar";
 
 function App(props) {
-  const dispatch = useDispatch();
-
-	const handleYarnSortClick = () => {
-    dispatch(yarnNameSortToggled());
-	};
-
   return (
     <Router>
       <div className="App">
+        <Navbar />
       	<Switch>
-          <Route exact path="/">
-            <YarnAddWidget />
-            <YarnList />
-            <button onClick={handleYarnSortClick}>Toggle Yarn Name Sort</button>
-          </Route>
-          <Route path="/yarns/:yarnID">
-            <YarnPage />
-          </Route>
+          <Route exact path="/" component={HomePage} />
+          <Route exact path="/yarns/:yarnID" component={YarnPage} />
+          <Route path="/yarns/:yarnID/colorways/:colorwayID" component={ColorwayPage} />
         </Switch>
       </div>
     </Router>

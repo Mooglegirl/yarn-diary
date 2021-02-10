@@ -1,7 +1,0 @@
-.ColorwayList {
-	&__colorway {
-		&:not(:last-child):after {
-			content: ", ";
-		}
-	}
-}

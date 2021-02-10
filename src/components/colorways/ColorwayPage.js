@@ -1,0 +1,37 @@
+import {useParams, Redirect} from "react-router-dom";
+import {useSelector} from "react-redux";
+
+import {selectColorwayByID} from "../../slices/colorwaysSlice";
+import {selectYarnByID} from "../../slices/yarnsSlice";
+
+import "./ColorwayPage.scss";
+import PageWithSidebar from "../general/PageWithSidebar";
+import ColorwayEditWidget from "./ColorwayEditWidget";
+import ColorwayDeleteWidget from "./ColorwayDeleteWidget";
+
+export default function ColorwayPage(props) {
+	const {yarnID, colorwayID} = useParams();
+	const colorway = useSelector(state => selectColorwayByID(state, colorwayID));
+	const yarn = useSelector(state => selectYarnByID(state, yarnID));
+	const colorwayIs404 = colorway === undefined;
+	const yarnIs404 = yarn === undefined;
+
+	if(colorwayIs404) {
+		return yarnIs404 ? <Redirect to="/" /> : <Redirect to={`/yarns/${yarnID}`} />;
+	} else {
+		return (
+			<div className="ColorwayPage">
+				<PageWithSidebar
+					content={<>
+						<h2>Colorway: {colorway.name}</h2>
+						{colorway.comment && <p>{colorway.comment}</p>}
+					</>}
+					sidebar={<>
+						<ColorwayEditWidget colorwayID={colorwayID} />
+						<ColorwayDeleteWidget colorwayID={colorwayID} />
+					</>}
+				/>
+			</div>
+		);
+	}
+}

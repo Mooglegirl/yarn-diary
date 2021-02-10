@@ -1,12 +1,14 @@
 import {useParams, Redirect} from "react-router-dom";
 import {useSelector} from "react-redux";
 
-import {selectYarnByID} from "../slices/yarnsSlice";
+import {selectYarnByID} from "../../slices/yarnsSlice";
 
-import ColorwayList from "./ColorwayList";
-import YarnEditWidget from "./YarnEditWidget";
-import ColorwayAddWidget from "./ColorwayAddWidget";
-import PageWithSidebar from "./PageWithSidebar";
+import "./YarnPage.scss";
+import ColorwayList from "../colorways/ColorwayList";
+import YarnEditWidget from "../yarns/YarnEditWidget";
+import YarnDeleteWidget from "../yarns/YarnDeleteWidget";
+import ColorwayAddWidget from "../colorways/ColorwayAddWidget";
+import PageWithSidebar from "../general/PageWithSidebar";
 
 export default function YarnPage(props) {
 	const {yarnID} = useParams();
@@ -17,14 +19,16 @@ export default function YarnPage(props) {
 		<div className="YarnPage">
 			<PageWithSidebar 
 				content={<>
-					<h2>Brand: {yarn.brand}</h2>
-					<h2>Name: {yarn.name}</h2>
-					<h3>Colorways: <ColorwayList yarnID={yarnID} /></h3>
+					<h2>Yarn Brand: {yarn.brand}</h2>
+					<h2>Yarn Name: {yarn.name}</h2>
 					{yarn.comment && <p>{yarn.comment}</p>}
+					<h3>Colorways:</h3>
+					<ColorwayList yarnID={yarnID} />
 				</>}
 				sidebar={<>
 					<YarnEditWidget yarnID={yarnID} />
 					<ColorwayAddWidget yarnID={yarnID} />
+					<YarnDeleteWidget yarnID={yarnID} />
 				</>}
 			/>
 		</div>

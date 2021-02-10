@@ -6,10 +6,18 @@
 
 	width: 100%;
 
-	img {
+	img, svg {
 		margin-right: 6px;
 
 		width: 20px;
 		height: auto;
+	}
+
+	&--danger {
+		background-color: #ffbdbd;
+
+		&:hover {
+			background-color: #fbcccc;
+		}
 	}
 }

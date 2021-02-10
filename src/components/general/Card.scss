@@ -1,6 +1,6 @@
 $gutter: 10px;
 
-.YarnCard {
+.Card {
 	border: 1px solid gray;
 	border-radius: 5px;
 	flex-basis: 21%;
@@ -13,20 +13,28 @@ $gutter: 10px;
 		margin-right: 0;
 	}
 
-	&__name {
+	&__header {
 		background-color: rgba(0, 0, 0, 0.05);
-		border-bottom: 1px solid gray;
 		display: block;
 		font-weight: 500;
 		padding: 8px;
 	}
 
-	&__colorways {
+	&__body {
+		border-top: 1px solid gray;
 		padding: 8px;
 	}
 
-	&__comment {
+	&__footer {
 		border-top: 1px solid gray;
 		padding: 8px;
+	}
+
+	p {
+		display: -webkit-box;
+		margin: 0;
+		overflow: hidden;
+		-webkit-box-orient: vertical;
+		-webkit-line-clamp: 4;
 	}
 }

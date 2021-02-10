@@ -40,13 +40,13 @@ input[type='text'], textarea {
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;
   font-size: 16px;
+  outline: 1px solid white;
 
   min-width: 100%;
   max-width: 100%;
 
   &:focus {
-    border-width: 2px;
-    outline: none;
+    outline: 1px solid black;
   }
 }
 
@@ -69,4 +69,12 @@ button, input[type='submit'] {
 
 h2, h3 {
   margin-top: 0;
+}
+
+p {
+  margin-top: 0;
+}
+
+.comma-separate:not(:last-child):after {
+  content: ", ";
 }

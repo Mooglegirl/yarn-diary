@@ -1,11 +1,14 @@
 import {createSlice} from "@reduxjs/toolkit";
 
 // if you need a new modal, just add it here and use it in a Modal component's modalName prop
-// everything else will just work
+// then have your action name be formatted like ${modalName}ModalSubmitted
 export const ModalNames = Object.freeze({
 	yarnEdit: "yarnEdit",
 	yarnAdd: "yarnAdd",
-	colorwayAdd: "colorwayAdd"
+	yarnDelete: "yarnDelete",
+	colorwayAdd: "colorwayAdd",
+	colorwayEdit: "colorwayEdit",
+	colorwayDelete: "colorwayDelete"
 });
 
 const modalsSlice = createSlice({

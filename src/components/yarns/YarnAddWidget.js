@@ -1,26 +1,29 @@
 import {useDispatch} from "react-redux";
 import {useForm} from "react-hook-form";
+import {useHistory} from "react-router";
 
-import {yarnAddModalSubmitted} from "../slices/yarnsSlice";
-import {modalOpened, ModalNames} from "../slices/modalsSlice";
+import {yarnAddModalSubmitted} from "../../slices/yarnsSlice";
+import {modalOpened, ModalNames} from "../../slices/modalsSlice";
 
-import Modal from "./Modal";
-import Button from "./Button";
-import addIcon from "../resources/add.svg";
+import Modal from "../general/Modal";
+import Button from "../general/Button";
+import {ReactComponent as AddIcon} from "../../resources/add.svg";
 
 export default function YarnAddWidget(props) {
 	const dispatch = useDispatch();
+	const history = useHistory();
 	const {register, handleSubmit, errors} = useForm();
 	const modalName = ModalNames.yarnAdd;
 
 	const handleAddFormSubmit = data => {
     if(errors.yarnBrand || errors.yarnName) return;
-    dispatch(yarnAddModalSubmitted(data.yarnBrand, data.yarnName, data.yarnComment));
+    const action = dispatch(yarnAddModalSubmitted(data.yarnBrand, data.yarnName, data.yarnComment));
+    history.push(`/yarns/${action.payload.id}`);
 	};
 
 	return (
 		<div className="YarnAddWidget">
-			<Button handleClick={() => dispatch(modalOpened(modalName))} icon={addIcon}>Add New Yarn</Button>
+			<Button handleClick={() => dispatch(modalOpened(modalName))} icon={AddIcon}>Add New Yarn</Button>
 			<Modal modalName={modalName} options={{closeOnOverlayClick: false}}>
 				<form onSubmit={handleSubmit(handleAddFormSubmit)}>
 				  <label>

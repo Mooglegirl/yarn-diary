@@ -1,14 +1,15 @@
 import {useDispatch, useSelector} from "react-redux";
 import {useForm} from "react-hook-form";
 
-import {modalOpened, ModalNames} from "../slices/modalsSlice";
-import {yarnEditModalSubmitted, selectYarnByID} from "../slices/yarnsSlice";
+import {modalOpened, ModalNames} from "../../slices/modalsSlice";
+import {yarnEditModalSubmitted, selectYarnByID} from "../../slices/yarnsSlice";
 
-import Button from "./Button";
-import editIcon from "../resources/edit.svg";
-import Modal from "./Modal";
+import Button from "../general/Button";
+import {ReactComponent as EditIcon} from "../../resources/edit.svg";
+import Modal from "../general/Modal";
 
-export default function YarnEditWidget({yarnID}) {
+export default function YarnEditWidget(props) {
+	const {yarnID} = props;
 	const dispatch = useDispatch();
 	const currentYarn = useSelector(state => selectYarnByID(state, yarnID));
 	const modalName = ModalNames.yarnEdit;
@@ -26,7 +27,7 @@ export default function YarnEditWidget({yarnID}) {
 
 	return (
 		<div className="YarnEditWidget">
-			<Button handleClick={() => dispatch(modalOpened(modalName))} icon={editIcon}>Edit Yarn</Button>
+			<Button handleClick={() => dispatch(modalOpened(modalName))} icon={EditIcon}>Edit Yarn</Button>
 			<Modal modalName={modalName} options={{closeOnOverlayClick: false}}>
 				<form onSubmit={handleSubmit(handleFormSubmit)}>
 					<label>

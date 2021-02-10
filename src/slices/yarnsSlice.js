@@ -18,7 +18,9 @@ const yarnsSlice = createSlice({
 					lastUpdated: new Date().toISOString()
 				}
 			}),
-			reducer: yarnsAdapter.addOne
+			reducer: (state, action) => {
+				yarnsAdapter.addOne(state, action);
+			}
 		},
 		yarnEditModalSubmitted: {
 			prepare: (id, changes) => ({
@@ -31,11 +33,12 @@ const yarnsSlice = createSlice({
 				}
 			}),
 			reducer: yarnsAdapter.updateOne
-		}
+		},
+		yarnDeleteModalSubmitted: yarnsAdapter.removeOne
 	}
 });
 
-export const {yarnAddModalSubmitted, yarnEditModalSubmitted} = yarnsSlice.actions;
+export const {yarnAddModalSubmitted, yarnEditModalSubmitted, yarnDeleteModalSubmitted} = yarnsSlice.actions;
 export default yarnsSlice.reducer;
 
 export const {

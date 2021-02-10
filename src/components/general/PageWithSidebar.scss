@@ -12,6 +12,7 @@
 		display: flex;
 		flex-basis: 200px;
 		flex-direction: column;
+		flex-shrink: 0;
 		float: right;
 		justify-content: flex-start;
 		margin-left: 15px;
