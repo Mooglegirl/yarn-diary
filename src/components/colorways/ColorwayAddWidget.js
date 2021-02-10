@@ -19,7 +19,7 @@ export default function ColorwayAddWidget({yarnID}) {
 
 	const handleAddFormSubmit = data => {
 		if(errors.colorwayName) return;
-		const action = dispatch(colorwayAddModalSubmitted(yarnID, data.colorwayName, data.colorwayComment));
+		const action = dispatch(colorwayAddModalSubmitted(yarnID, data.colorwayName, data.colorwayComment, data.colorwayImages));
 		history.push(`/yarns/${yarnID}/colorways/${action.payload.id}`);
 	};
 
@@ -36,6 +36,10 @@ export default function ColorwayAddWidget({yarnID}) {
 					<label>
 						Comment
 						<textarea name="colorwayComment" ref={register} />
+					</label>
+					<label>
+						Image URLs (separate with line breaks)
+						<textarea name="colorwayImages" ref={register} />
 					</label>
 					<input type="submit" value="Add" />
 				</form>

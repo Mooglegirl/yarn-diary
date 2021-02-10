@@ -17,7 +17,7 @@ export default function YarnAddWidget(props) {
 
 	const handleAddFormSubmit = data => {
     if(errors.yarnBrand || errors.yarnName) return;
-    const action = dispatch(yarnAddModalSubmitted(data.yarnBrand, data.yarnName, data.yarnComment));
+    const action = dispatch(yarnAddModalSubmitted(data.yarnBrand, data.yarnName, data.yarnComment, data.yarnImages));
     history.push(`/yarns/${action.payload.id}`);
 	};
 
@@ -37,6 +37,10 @@ export default function YarnAddWidget(props) {
 				  <label>
 				  	Comment
 				  	<textarea name="yarnComment" ref={register} />
+				  </label>
+				  <label>
+				  	Image URLs (separate with line breaks)
+				  	<textarea name="yarnImages" ref={register} />
 				  </label>
 				  <input type="submit" value="Add" />
 				</form>

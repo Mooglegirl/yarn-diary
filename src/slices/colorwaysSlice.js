@@ -10,13 +10,14 @@ const colorwaysSlice = createSlice({
 	initialState: initialState,
 	reducers: {
 		colorwayAddModalSubmitted: {
-			prepare(yarnID, name, comment) {
+			prepare(yarnID, name, comment, images) {
 				return {
 					payload: {
 						id: nanoid(),
 						yarnID,
 						name,
-						comment: comment,
+						comment,
+						images,
 						dateAdded: new Date().toISOString(),
 						lastUpdated: new Date().toISOString()
 					}

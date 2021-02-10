@@ -8,6 +8,7 @@ import "./ColorwayPage.scss";
 import PageWithSidebar from "../general/PageWithSidebar";
 import ColorwayEditWidget from "./ColorwayEditWidget";
 import ColorwayDeleteWidget from "./ColorwayDeleteWidget";
+import ImageGallery from "../general/ImageGallery";
 
 export default function ColorwayPage(props) {
 	const {yarnID, colorwayID} = useParams();
@@ -25,6 +26,8 @@ export default function ColorwayPage(props) {
 					content={<>
 						<h2>Colorway: {colorway.name}</h2>
 						{colorway.comment && <p>{colorway.comment}</p>}
+						<h3>Gallery:</h3>
+						<ImageGallery images={colorway.images} />
 					</>}
 					sidebar={<>
 						<ColorwayEditWidget colorwayID={colorwayID} />

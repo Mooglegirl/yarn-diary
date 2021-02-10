@@ -11,9 +11,10 @@ export default function ColorwayCard(props) {
 	const colorway = useSelector(state => selectColorwayByID(state, colorwayID));
 
 	return (
-		<Card
-			header={<Link to={`${url}/colorways/${colorwayID}`}>{colorway.name}</Link>}
-			body={!!colorway.comment && <p>{colorway.comment}</p>}
-		/>
+		<Card sections={[
+			!!colorway.images && <Link to={`${url}/colorways/${colorwayID}`}><img src={colorway.images.split("\n")[0]} alt="Yarn" /></Link>,
+			{isHeader: true, content: <Link to={`${url}/colorways/${colorwayID}`}>{colorway.name}</Link>},
+			!!colorway.comment && <p>{colorway.comment}</p>
+		]} />
 	);
 }

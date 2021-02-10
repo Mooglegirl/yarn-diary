@@ -20,7 +20,8 @@ export default function ColorwayEditWidget(props) {
 
 		dispatch(colorwayEditModalSubmitted(colorwayID, {
 			name: data.colorwayName,
-			comment: data.colorwayComment
+			comment: data.colorwayComment,
+			images: data.colorwayImages
 		}));
 	};
 
@@ -36,6 +37,10 @@ export default function ColorwayEditWidget(props) {
 					<label>
 						Comment
 						<textarea name="colorwayComment" ref={register} defaultValue={currentColorway.comment} />
+					</label>
+					<label>
+						Image URLs (separate with line breaks)
+						<textarea name="colorwayImages" ref={register} />
 					</label>
 					<input type="submit" value="Update" />
 				</form>

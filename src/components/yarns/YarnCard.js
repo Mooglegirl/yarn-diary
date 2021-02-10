@@ -16,13 +16,14 @@ export default function YarnCard(props) {
 		colorways.map(colorway => <span className="comma-separate" key={colorway.id}><Link to={`/yarns/${yarnID}/colorways/${colorway.id}`}>{colorway.name}</Link></span>);
 
 	return (
-		<Card 
-			header={<Link to={`/yarns/${yarnID}`}>{yarn.brand} {yarn.name}</Link>}
-			body={(<>
+		<Card sections={[
+			!!yarn.images && <Link to={`/yarns/${yarnID}`}><img src={yarn.images.split("\n")[0]} alt="Yarn" /></Link>,
+			{isHeader: true, content: <Link to={`/yarns/${yarnID}`}>{yarn.brand} {yarn.name}</Link>},
+			<>
 				<span>Colorways: </span>
 				{colorwayList}
-			</>)}
-			footer={!!yarn.comment && <p>{yarn.comment}</p>}
-		/>
+			</>,
+			!!yarn.comment && <p>{yarn.comment}</p>
+		]} />
 	);
 }

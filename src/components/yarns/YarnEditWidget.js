@@ -21,7 +21,8 @@ export default function YarnEditWidget(props) {
 		dispatch(yarnEditModalSubmitted(yarnID, {
 			brand: data.yarnBrand,
 			name: data.yarnName,
-			comment: data.yarnComment
+			comment: data.yarnComment,
+			images: data.yarnImages
 		}));
 	};
 
@@ -41,6 +42,10 @@ export default function YarnEditWidget(props) {
 					<label>
 						Comment
 						<textarea name="yarnComment" ref={register} defaultValue={currentYarn.comment} />
+					</label>
+					<label>
+						Image URLs (separate with line breaks)
+						<textarea name="yarnImages" ref={register} defaultValue={currentYarn.images} />
 					</label>
 					<input type="submit" value="Update" />
 				</form>

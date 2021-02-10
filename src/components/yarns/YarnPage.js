@@ -9,6 +9,7 @@ import YarnEditWidget from "../yarns/YarnEditWidget";
 import YarnDeleteWidget from "../yarns/YarnDeleteWidget";
 import ColorwayAddWidget from "../colorways/ColorwayAddWidget";
 import PageWithSidebar from "../general/PageWithSidebar";
+import ImageGallery from "../general/ImageGallery";
 
 export default function YarnPage(props) {
 	const {yarnID} = useParams();
@@ -24,6 +25,8 @@ export default function YarnPage(props) {
 					{yarn.comment && <p>{yarn.comment}</p>}
 					<h3>Colorways:</h3>
 					<ColorwayList yarnID={yarnID} />
+					<h3>Gallery:</h3>
+					<ImageGallery images={yarn.images} />
 				</>}
 				sidebar={<>
 					<YarnEditWidget yarnID={yarnID} />

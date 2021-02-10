@@ -6,6 +6,7 @@ $gutter: 10px;
 	flex-basis: 21%;
 	flex-grow: 1;
 	margin: 0 $gutter $gutter 0;
+	overflow: hidden;
 
 	max-width: calc(25% - #{$gutter});
 
@@ -13,21 +14,18 @@ $gutter: 10px;
 		margin-right: 0;
 	}
 
-	&__header {
-		background-color: rgba(0, 0, 0, 0.05);
+	&__section {
 		display: block;
-		font-weight: 500;
 		padding: 8px;
-	}
 
-	&__body {
-		border-top: 1px solid gray;
-		padding: 8px;
-	}
+		&--header {
+			background-color: rgba(0, 0, 0, 0.05);
+			font-weight: 500;
+		}
 
-	&__footer {
-		border-top: 1px solid gray;
-		padding: 8px;
+		&:not(:first-child) {
+			border-top: 1px solid gray;
+		}
 	}
 
 	p {
@@ -36,5 +34,13 @@ $gutter: 10px;
 		overflow: hidden;
 		-webkit-box-orient: vertical;
 		-webkit-line-clamp: 4;
+	}
+
+	img {
+		display: block;
+		margin: -8px;
+
+		width: calc(100% + 16px);
+		height: auto;
 	}
 }
