@@ -8,12 +8,13 @@ const yarnsSlice = createSlice({
 	initialState: initialState,
 	reducers: {
 		yarnAddModalSubmitted: {
-			prepare: (brand, name, comment) => ({ 
+			prepare: (brand, name, comment, images) => ({ 
 				payload: {
 					id: nanoid(),
 					brand,
 					name,
-					comment: comment,
+					comment,
+					images,
 					dateAdded: new Date().toISOString(),
 					lastUpdated: new Date().toISOString()
 				}
@@ -47,10 +48,10 @@ export const {
 } = yarnsAdapter.getSelectors(state => state.yarns);
 
 
-// memoized selector
+// TODO
 export const selectSortedYarnIDs = createSelector(
 	selectYarnEntities,
-	state => state.sorts.yarnName,
+	state => true,
 	(yarns, areYarnsSorted) => {
 		const yarnIDs = Object.keys(yarns);
 		if(areYarnsSorted) {
