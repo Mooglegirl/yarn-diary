@@ -1,0 +1,14 @@
+.HomePage {
+	&__toolbar {
+		display: flex;
+		margin-bottom: 8px;
+
+		& > * {
+			flex-grow: 1;
+		}
+
+		.Button {
+			margin-bottom: 0;
+		}
+	}
+}

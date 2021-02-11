@@ -1,0 +1,20 @@
+.YarnSearchBox {
+	display: flex;
+	justify-content: flex-start;
+
+	input {
+		flex-basis: 50%;
+		margin-right: 8px;
+
+		min-width: 0;
+		max-width: none;
+	}
+
+	.Button {
+		flex-shrink: 1;
+		margin-right: 8px;
+
+		width: auto;
+		min-width: 0;
+	}
+}

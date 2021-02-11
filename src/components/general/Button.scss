@@ -7,10 +7,12 @@
 	width: 100%;
 
 	img, svg {
-		margin-right: 6px;
-
 		width: 20px;
 		height: auto;
+
+		&:not(:last-child) {
+			margin-right: 6px;
+		}
 	}
 
 	&--danger {

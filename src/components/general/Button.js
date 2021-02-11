@@ -17,7 +17,7 @@ export default function Button(props) {
 	return (
 		<button className={classes} onClick={props.handleClick}>
 			{icon}
-			{props.children}
+			{props.children && <div>{props.children}</div>}
 		</button>
 	);
 }
