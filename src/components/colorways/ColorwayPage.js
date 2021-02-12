@@ -25,6 +25,7 @@ export default function ColorwayPage(props) {
 				<PageWithSidebar
 					content={<>
 						<h2>Colorway: {colorway.name}</h2>
+						<h3>Yarn: {yarn.brand} {yarn.name}</h3>
 						{colorway.comment && <p>{colorway.comment}</p>}
 						<h3>Gallery:</h3>
 						<ImageGallery images={colorway.images} />

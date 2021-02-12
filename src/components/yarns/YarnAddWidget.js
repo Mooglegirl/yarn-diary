@@ -1,8 +1,8 @@
-import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {useForm} from "react-hook-form";
-import {useHistory} from "react-router";
+import {useHistory} from "react-router-dom";
 
-import {yarnAddModalSubmitted} from "../../slices/yarnsSlice";
+import {yarnAddModalSubmitted, selectYarnsByFullName} from "../../slices/yarnsSlice";
 import {modalOpened, ModalNames} from "../../slices/modalsSlice";
 
 import Modal from "../general/Modal";
@@ -12,11 +12,17 @@ import {ReactComponent as AddIcon} from "../../resources/add.svg";
 export default function YarnAddWidget(props) {
 	const dispatch = useDispatch();
 	const history = useHistory();
-	const {register, handleSubmit, errors} = useForm();
+	const {register, handleSubmit, errors, watch} = useForm();
 	const modalName = ModalNames.yarnAdd;
 
+	const brandWatcher = watch("yarnBrand", "");
+	const nameWatcher = watch("yarnName", "");
+	const existingYarn = useSelector(state => selectYarnsByFullName(state, {brand: brandWatcher, name: nameWatcher}))[0];
+
+	const hasAnyError = errors.yarnBrand || errors.yarnName || !!existingYarn;
+
 	const handleAddFormSubmit = data => {
-    if(errors.yarnBrand || errors.yarnName) return;
+    if(hasAnyError) return;
     const action = dispatch(yarnAddModalSubmitted(data.yarnBrand, data.yarnName, data.yarnComment, data.yarnImages));
     history.push(`/yarns/${action.payload.id}`);
 	};
@@ -42,7 +48,8 @@ export default function YarnAddWidget(props) {
 				  	Image URLs (separate with line breaks)
 				  	<textarea name="yarnImages" ref={register} />
 				  </label>
-				  <input type="submit" value="Add" />
+				  {!!existingYarn && <p className="error">Yarn already exists</p>}
+				  <input type="submit" value="Add" disabled={hasAnyError} />
 				</form>
 			</Modal>
 		</div>

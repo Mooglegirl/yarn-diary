@@ -22,7 +22,7 @@ export default function Modal(props) {
 	}
 
 	return isActive && (
-		<div className={`${props.className} Modal`}>
+		<div className={`Modal ${props.className ? props.className : ""}`}>
 			<div className="Modal__overlay" onClick={options.closeOnOverlayClick ? handleCloseClick : undefined} />
 			<div className="Modal__inner">
 				{options.showXButton && <div className="Modal__close" onClick={handleCloseClick}>&times;</div>}

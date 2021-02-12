@@ -1,4 +1,4 @@
-import {createSlice} from "@reduxjs/toolkit";
+import {createSlice, createAction} from "@reduxjs/toolkit";
 
 // if you need a new modal, just add it here and use it in a Modal component's modalName prop
 // then have your action name be formatted like ${modalName}ModalSubmitted
@@ -8,7 +8,8 @@ export const ModalNames = Object.freeze({
 	yarnDelete: "yarnDelete",
 	colorwayAdd: "colorwayAdd",
 	colorwayEdit: "colorwayEdit",
-	colorwayDelete: "colorwayDelete"
+	colorwayDelete: "colorwayDelete",
+	optionsUpdate: "optionsUpdate"
 });
 
 const modalsSlice = createSlice({
@@ -35,6 +36,10 @@ const modalsSlice = createSlice({
 		)
 	}
 });
+
+// we don't need to do anything here besides close the modal (which the extraReducer handles),
+// but other slices will listen for this and update their respective options
+export const optionsUpdateModalSubmitted = createAction("modals/optionsUpdateModalSubmitted");
 
 export const {modalOpened, modalClosed} = modalsSlice.actions;
 export default modalsSlice.reducer;

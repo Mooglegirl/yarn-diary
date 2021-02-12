@@ -82,3 +82,16 @@ p {
 .comma-separate:not(:last-child):after {
   content: ", ";
 }
+
+ul {
+  padding-left: 20px;
+}
+
+.has-error {
+  border: 1px solid red !important;
+}
+
+.error {
+  color: red !important;
+  font-style: italic !important;
+}

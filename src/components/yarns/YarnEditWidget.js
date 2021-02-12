@@ -2,7 +2,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {useForm} from "react-hook-form";
 
 import {modalOpened, ModalNames} from "../../slices/modalsSlice";
-import {yarnEditModalSubmitted, selectYarnByID} from "../../slices/yarnsSlice";
+import {yarnEditModalSubmitted, selectYarnByID, selectYarnsByFullName} from "../../slices/yarnsSlice";
 
 import Button from "../general/Button";
 import {ReactComponent as EditIcon} from "../../resources/edit.svg";
@@ -13,11 +13,17 @@ export default function YarnEditWidget(props) {
 	const dispatch = useDispatch();
 	const currentYarn = useSelector(state => selectYarnByID(state, yarnID));
 	const modalName = ModalNames.yarnEdit;
-	const {register, handleSubmit, errors} = useForm();
+	const {register, handleSubmit, errors, watch} = useForm();
+
+	const brandWatcher = watch("yarnBrand", "");
+	const nameWatcher = watch("yarnName", "");
+	const existingYarn = useSelector(state => selectYarnsByFullName(state, {brand: brandWatcher, name: nameWatcher}))[0];
+	const existingYarnIsNotThisOne = existingYarn && existingYarn.id !== yarnID;
+
+	const hasAnyError = errors.yarnBrand || errors.yarnName || existingYarnIsNotThisOne;
 
 	const handleFormSubmit = data => {
-		if(errors.yarnBrand || errors.yarnName) return;
-
+		if(hasAnyError) return;
 		dispatch(yarnEditModalSubmitted(yarnID, {
 			brand: data.yarnBrand,
 			name: data.yarnName,
@@ -47,7 +53,8 @@ export default function YarnEditWidget(props) {
 						Image URLs (separate with line breaks)
 						<textarea name="yarnImages" ref={register} defaultValue={currentYarn.images} />
 					</label>
-					<input type="submit" value="Update" />
+					{existingYarnIsNotThisOne && <p className="error">Other yarn with that name already exists</p>}
+					<input type="submit" value="Update" disabled={hasAnyError} />
 				</form>
 			</Modal>
 		</div>

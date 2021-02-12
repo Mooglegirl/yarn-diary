@@ -2,7 +2,11 @@ import {useDispatch, useSelector} from "react-redux";
 import {useForm} from "react-hook-form";
 
 import {modalOpened, ModalNames} from "../../slices/modalsSlice";
-import {colorwayEditModalSubmitted, selectColorwayByID} from "../../slices/colorwaysSlice";
+import {
+	colorwayEditModalSubmitted, 
+	selectColorwayByID,
+	selectColorwaysByYarnIDAndName
+} from "../../slices/colorwaysSlice";
 
 import Button from "../general/Button";
 import {ReactComponent as EditIcon} from "../../resources/edit.svg";
@@ -13,11 +17,16 @@ export default function ColorwayEditWidget(props) {
 	const dispatch = useDispatch();
 	const currentColorway = useSelector(state => selectColorwayByID(state, colorwayID));
 	const modalName = ModalNames.colorwayEdit;
-	const {register, handleSubmit, errors} = useForm();
+	const {register, handleSubmit, errors, watch} = useForm();
+
+	const nameWatcher = watch("colorwayName", "");
+	const existingColorway = useSelector(state => selectColorwaysByYarnIDAndName(state, {yarnID: currentColorway.yarnID, name: nameWatcher}))[0];
+	const existingColorwayIsNotThisOne = existingColorway && existingColorway.id !== colorwayID;
+
+	const hasAnyError = errors.colorwayName || existingColorwayIsNotThisOne;
 
 	const handleFormSubmit = data => {
-		if(errors.colorwayName) return;
-
+		if(hasAnyError) return;
 		dispatch(colorwayEditModalSubmitted(colorwayID, {
 			name: data.colorwayName,
 			comment: data.colorwayComment,
@@ -42,7 +51,8 @@ export default function ColorwayEditWidget(props) {
 						Image URLs (separate with line breaks)
 						<textarea name="colorwayImages" ref={register} />
 					</label>
-					<input type="submit" value="Update" />
+					{existingColorwayIsNotThisOne && <p className="error">Other colorway with that name already exists on this yarn</p>}
+					<input type="submit" value="Update" disabled={hasAnyError} />
 				</form>
 			</Modal>
 		</div>

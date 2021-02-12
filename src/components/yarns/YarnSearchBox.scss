@@ -17,4 +17,46 @@
 		width: auto;
 		min-width: 0;
 	}
+
+	&__tooltip-wrap {
+		align-items: center;
+		display: flex;
+
+		position: relative;
+	}
+
+	&__tooltip-icon {
+		&:hover + .YarnSearchBox__tooltip-popup {
+			display: block;
+		}
+
+		svg {
+			width: 18px;
+			height: auto;
+		}
+	}
+
+	&__tooltip-popup {
+		background-color: #e7f1fd;
+		border: 1px solid black;
+		border-radius: 5px;
+		display: none;
+		padding: 10px 15px;
+
+		position: absolute;
+		left: calc(100% + 10px);
+		top: -8px;
+
+		p {
+			margin-bottom: 0;
+		}
+
+		ul {
+			margin: 0;
+		}
+
+		li {
+			white-space: nowrap;
+		}
+	}
 }

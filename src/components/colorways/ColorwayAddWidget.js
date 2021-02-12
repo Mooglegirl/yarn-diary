@@ -4,7 +4,7 @@ import {useHistory} from "react-router";
 
 import {modalOpened, ModalNames} from "../../slices/modalsSlice";
 import {selectYarnByID} from "../../slices/yarnsSlice";
-import {colorwayAddModalSubmitted} from "../../slices/colorwaysSlice";
+import {colorwayAddModalSubmitted, selectColorwaysByYarnIDAndName} from "../../slices/colorwaysSlice";
 
 import Modal from "../general/Modal";
 import Button from "../general/Button";
@@ -13,12 +13,17 @@ import {ReactComponent as AddIcon} from "../../resources/add.svg";
 export default function ColorwayAddWidget({yarnID}) {
 	const dispatch = useDispatch();
 	const history = useHistory();
-	const {register, handleSubmit, errors} = useForm();
+	const {register, handleSubmit, errors, watch} = useForm();
 	const modalName = ModalNames.colorwayAdd;
 	const yarn = useSelector(state => selectYarnByID(state, yarnID));
 
+	const nameWatcher = watch("colorwayName", "");
+	const existingColorway = useSelector(state => selectColorwaysByYarnIDAndName(state, {yarnID: yarnID, name: nameWatcher}))[0];
+
+	const hasAnyError = errors.colorwayName || !!existingColorway;
+
 	const handleAddFormSubmit = data => {
-		if(errors.colorwayName) return;
+		if(hasAnyError) return;
 		const action = dispatch(colorwayAddModalSubmitted(yarnID, data.colorwayName, data.colorwayComment, data.colorwayImages));
 		history.push(`/yarns/${yarnID}/colorways/${action.payload.id}`);
 	};
@@ -41,7 +46,8 @@ export default function ColorwayAddWidget({yarnID}) {
 						Image URLs (separate with line breaks)
 						<textarea name="colorwayImages" ref={register} />
 					</label>
-					<input type="submit" value="Add" />
+					{!!existingColorway && <p className="error">Colorway already exists on this yarn</p>}
+					<input type="submit" value="Add" disabled={hasAnyError} />
 				</form>
 			</Modal>
 		</div>

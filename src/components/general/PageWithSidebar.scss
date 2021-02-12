@@ -17,5 +17,9 @@
 		justify-content: flex-start;
 		margin-left: 15px;
 		padding: 15px;
+
+		& > :last-child .Button:last-child {
+			margin-bottom: 0;
+		}
 	}
 }

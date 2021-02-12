@@ -6,6 +6,7 @@ import {yarnSearchSubmitted} from "../../slices/yarnsSlice";
 import "./YarnSearchBox.scss";
 import Button from "../general/Button";
 import {ReactComponent as SearchIcon} from "../../resources/search.svg";
+import {ReactComponent as InfoIcon} from "../../resources/info.svg";
 
 export default function YarnSearchBox(props) {
 	const dispatch = useDispatch();
@@ -32,6 +33,19 @@ export default function YarnSearchBox(props) {
 			<input type="text" name="yarnSearch" ref={register} defaultValue={defaultSearchValue} placeholder="Search yarns" onKeyPress={handleInputKeyPress} />
 			<Button handleClick={handleSubmit(handleSearchSubmit)} icon={SearchIcon} />
 			<Button handleClick={handleSearchClear}>Clear</Button>
+			<div className="YarnSearchBox__tooltip-wrap">
+				<div className="YarnSearchBox__tooltip-icon"><InfoIcon /></div>
+				<div className="YarnSearchBox__tooltip-popup">
+					<p>Hints:</p>
+					<ul>
+						<li>lion brand basic</li>
+						<li>brand[caron]</li>
+						<li>name[simply soft]</li>
+						<li>brand[red heart] name[solids]</li>
+						<li>(Only the first brand and name will be used)</li>
+					</ul>
+				</div>
+			</div>
 		</div>
 	);
 }

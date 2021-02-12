@@ -7,9 +7,10 @@ import YarnCard from "./YarnCard";
 
 export default function YarnList(props) {
 	const displayedYarnIDs = useSelector(selectDisplayedYarnIDs);
+	const displayMode = useSelector(state => state.yarns.displayMode);
 	
 	return (
-		<CardList>
+		<CardList listMode={displayMode === "list"}>
 			{displayedYarnIDs.map(yarnID => <YarnCard id={yarnID} key={yarnID} />)}
 		</CardList>
 	);

@@ -1,6 +1,7 @@
 import "./Navbar.scss";
 
 import Breadcrumbs from "./Breadcrumbs";
+import OptionsWidget from "./OptionsWidget";
 
 export default function Navbar(props) {
 	return (
@@ -9,10 +10,7 @@ export default function Navbar(props) {
 				<Breadcrumbs />
 			</div>
 			<div className="Navbar__section">
-				{/* TODO */}
-			</div>
-			<div className="Navbar__section">
-				{/* TODO */}
+				<OptionsWidget />
 			</div>
 		</div>
 	);
