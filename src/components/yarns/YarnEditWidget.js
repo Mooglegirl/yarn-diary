@@ -46,7 +46,7 @@ export default function YarnEditWidget(props) {
 						<input type="text" name="yarnName" ref={register({required: true})} defaultValue={currentYarn.name} className={errors.yarnName ? "has-error" : ""} />
 					</label>
 					<label>
-						Comment
+						Comment (<a href="https://commonmark.org/help/" target="_blank" rel="noreferrer">Markdown supported</a>)
 						<textarea name="yarnComment" ref={register} defaultValue={currentYarn.comment} />
 					</label>
 					<label>

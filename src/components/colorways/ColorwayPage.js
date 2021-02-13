@@ -1,5 +1,7 @@
 import {useParams, Redirect} from "react-router-dom";
 import {useSelector} from "react-redux";
+import ReactMarkdown from "react-markdown";
+import gfm from "remark-gfm";
 
 import {selectColorwayByID} from "../../slices/colorwaysSlice";
 import {selectYarnByID} from "../../slices/yarnsSlice";
@@ -26,7 +28,7 @@ export default function ColorwayPage(props) {
 					content={<>
 						<h2>Colorway: {colorway.name}</h2>
 						<h3>Yarn: {yarn.brand} {yarn.name}</h3>
-						{colorway.comment && <p>{colorway.comment}</p>}
+						{colorway.comment && <ReactMarkdown plugins={[gfm]}>{colorway.comment}</ReactMarkdown>}
 						<h3>Gallery:</h3>
 						<ImageGallery images={colorway.images} />
 					</>}

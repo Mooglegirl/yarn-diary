@@ -40,7 +40,7 @@ export default function ColorwayEditWidget(props) {
 						<input type="text" name="colorwayName" ref={register({required: true})} defaultValue={currentColorway.name} className={errors.colorwayName ? "has-error" : ""} />
 					</label>
 					<label>
-						Comment
+						Comment (<a href="https://commonmark.org/help/" target="_blank" rel="noreferrer">Markdown supported</a>)
 						<textarea name="colorwayComment" ref={register} defaultValue={currentColorway.comment} />
 					</label>
 					<label>

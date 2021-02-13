@@ -41,7 +41,7 @@ export default function YarnAddWidget(props) {
 				    <input type="text" name="yarnName" ref={register({required: true})} className={errors.yarnName ? "has-error" : ""} />
 				  </label>
 				  <label>
-				  	Comment
+				  	Comment (<a href="https://commonmark.org/help/" target="_blank" rel="noreferrer">Markdown supported</a>)
 				  	<textarea name="yarnComment" ref={register} />
 				  </label>
 				  <label>

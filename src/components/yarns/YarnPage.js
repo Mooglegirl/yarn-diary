@@ -1,9 +1,10 @@
 import {useParams, Redirect} from "react-router-dom";
 import {useSelector} from "react-redux";
+import ReactMarkdown from "react-markdown";
+import gfm from "remark-gfm";
 
 import {selectYarnByID} from "../../slices/yarnsSlice";
 
-import "./YarnPage.scss";
 import ColorwayList from "../colorways/ColorwayList";
 import YarnEditWidget from "../yarns/YarnEditWidget";
 import YarnDeleteWidget from "../yarns/YarnDeleteWidget";
@@ -22,7 +23,7 @@ export default function YarnPage(props) {
 				content={<>
 					<h2>Yarn Brand: {yarn.brand}</h2>
 					<h2>Yarn Name: {yarn.name}</h2>
-					{yarn.comment && <p>{yarn.comment}</p>}
+					{yarn.comment && <ReactMarkdown plugins={[gfm]}>{yarn.comment}</ReactMarkdown>}
 					<h3>Colorways:</h3>
 					<ColorwayList yarnID={yarnID} />
 					<h3>Gallery:</h3>
