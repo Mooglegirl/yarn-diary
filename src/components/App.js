@@ -15,6 +15,7 @@ function App(props) {
 
   useEffect(() => {
     const handleWindowResize = () => dispatch(screenResized(window.innerWidth));
+    handleWindowResize();
     window.addEventListener("resize", handleWindowResize);
     return () => window.removeEventListener("resize", handleWindowResize);
   }, [dispatch]);
