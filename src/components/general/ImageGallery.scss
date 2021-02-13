@@ -1,3 +1,4 @@
+@import "../../extras/mixins";
 $gutter: 10px;
 
 .ImageGallery {
@@ -11,6 +12,13 @@ $gutter: 10px;
 		margin: 0 $gutter $gutter 0;
 
 		max-width: calc(33% - #{$gutter});
+
+		@include mobile() {
+			flex-basis: 100%;
+			margin: 0 0 $gutter;
+
+			max-width: none;
+		}
 
 		&:nth-child(4n) {
 			margin-right: 0;

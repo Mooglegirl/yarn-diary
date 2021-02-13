@@ -3,6 +3,7 @@ import {Link} from "react-router-dom";
 
 import {selectYarnByID} from "../../slices/yarnsSlice";
 import {selectSortedColorwaysByYarnID} from "../../slices/colorwaysSlice";
+import {selectScreenWidth} from "../../slices/uiSlice";
 
 import Card from "../general/Card";
 
@@ -11,19 +12,23 @@ export default function YarnCard(props) {
 	const yarn = useSelector(state => selectYarnByID(state, yarnID));
 	const colorways = useSelector(state => selectSortedColorwaysByYarnID(state, yarnID));
 
+	const screenWidth = useSelector(selectScreenWidth);
+	const breakpoint = 768;
+	const isCardMode = useSelector(state => state.yarns.displayMode) === "cards";
+
 	const colorwayList = colorways.length === 0 ?
 		<span>(None)</span> : 
 		colorways.map(colorway => <span className="comma-separate" key={colorway.id}><Link to={`/yarns/${yarnID}/colorways/${colorway.id}`}>{colorway.name}</Link></span>);
 
 	return (
 		<Card sections={[
-			!!yarn.images && <Link to={`/yarns/${yarnID}`}><img src={yarn.images.split("\n")[0]} alt="Yarn" /></Link>,
+			(screenWidth > breakpoint || isCardMode) && !!yarn.images && <Link to={`/yarns/${yarnID}`}><img src={yarn.images.split("\n")[0]} alt="Yarn" /></Link>,
 			{isHeader: true, content: <Link to={`/yarns/${yarnID}`}>{yarn.brand} {yarn.name}</Link>},
 			<>
-				<span>Colorways: </span>
+				{<span>Color{screenWidth > breakpoint ? "way" : ""}s: </span>}
 				{colorwayList}
 			</>,
-			!!yarn.comment && <p>{yarn.comment}</p>
+			(screenWidth > breakpoint || isCardMode) && !!yarn.comment && <p>{yarn.comment}</p>
 		]} />
 	);
 }

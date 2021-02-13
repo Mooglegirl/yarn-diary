@@ -1,3 +1,4 @@
+@import "../../extras/mixins";
 $gutter: 10px;
 
 .Card {
@@ -8,9 +9,15 @@ $gutter: 10px;
 	margin: 0 $gutter $gutter 0;
 	overflow: hidden;
 
-	max-width: calc(25% - #{$gutter});
+	@include desktop() {
+		max-width: calc(25% - #{$gutter});
 
-	&:nth-child(4n) {
+		&:nth-child(4n) {
+			margin-right: 0;
+		}
+	}
+
+	@include mobile() {
 		margin-right: 0;
 	}
 
@@ -42,5 +49,54 @@ $gutter: 10px;
 
 		width: calc(100% + 16px);
 		height: auto;
+	}
+}
+
+.CardList--list-mode .Card {
+	border-radius: 0;
+	display: flex;
+	flex-basis: 100%;
+	margin: 0;
+
+	max-width: none;
+
+	&__section--header {
+		@include mobile() {
+			box-sizing: border-box;
+			flex-basis: 40% !important;
+		}
+	}
+
+	&:not(:first-child) {
+		border-top: none;
+	}
+
+	&__section {
+		&:not(:first-child) {
+			border-left: 1px solid gray;
+			border-top: none;
+		}
+
+		&:not(:last-child) {
+			flex-basis: 30%;
+			flex-grow: 0;
+			flex-shrink: 0;
+		}
+
+		&:first-child:not(.Card__section--header) {
+			flex-basis: 63px;
+		}
+
+		&.Card__section--header:not(:first-child) {
+			flex-basis: calc(30% - 80px);
+		}
+
+		&:last-child {
+			flex-grow: 1;
+		}
+	}
+
+	p {
+		-webkit-line-clamp: 2;
 	}
 }

@@ -1,3 +1,5 @@
+@import "../../extras/mixins";
+
 .Navbar {
 	align-items: center;
 	background-color: white;
@@ -7,6 +9,7 @@
 	display: flex;
 	justify-content: space-between;
 	padding: 0 30px;
+	z-index: 1;
 
 	position: fixed;
 	top: 0;
@@ -14,6 +17,10 @@
 
 	width: 100%;
 	height: 52px;
+
+	@include mobile() {
+		padding: 0 10px;
+	}
 
 	&__section {
 		display: flex;
@@ -25,6 +32,16 @@
 
 	.Button {
 		margin-bottom: 0;
+
+		@include mobile() {
+			svg {
+				margin-right: 0;
+			}
+
+			svg + div {
+				display: none;
+			}
+		}
 	}
 
 	p {

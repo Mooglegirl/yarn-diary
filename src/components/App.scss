@@ -1,7 +1,13 @@
+@import "../extras/mixins";
+
 .App {
   box-sizing: border-box;
   margin: 52px auto 0;
   padding: 15px;
 
   max-width: 1200px;
+
+  @include mobile() {
+  	padding: 10px;
+  }
 }

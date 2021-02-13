@@ -1,3 +1,5 @@
+@import "../../extras/mixins";
+
 .YarnSearchBox {
 	display: flex;
 	justify-content: flex-start;
@@ -46,6 +48,13 @@
 		position: absolute;
 		left: calc(100% + 10px);
 		top: -8px;
+
+		@include mobile() {
+			position: fixed;
+			right: 15px;
+			top: 110px;
+			left: auto;
+		}
 
 		p {
 			margin-bottom: 0;

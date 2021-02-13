@@ -1,10 +1,24 @@
+@import "../../extras/mixins";
+
 .HomePage {
 	&__toolbar {
 		display: flex;
 		margin-bottom: 8px;
 
+		@include mobile() {
+			flex-direction: column;
+		}
+
 		& > * {
-			flex-grow: 1;
+			@include desktop() {
+				flex-grow: 1;
+			}
+
+			@include mobile() {
+				&:not(:last-child) {
+					margin-bottom: 8px;
+				}
+			}
 		}
 
 		.Button {
