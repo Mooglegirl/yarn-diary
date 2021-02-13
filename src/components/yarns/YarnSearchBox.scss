@@ -49,6 +49,8 @@
 		left: calc(100% + 10px);
 		top: -8px;
 
+		width: 300px;
+
 		@include mobile() {
 			position: fixed;
 			right: 15px;
@@ -62,10 +64,6 @@
 
 		ul {
 			margin: 0;
-		}
-
-		li {
-			white-space: nowrap;
 		}
 	}
 }

@@ -42,7 +42,7 @@ export default function YarnSearchBox(props) {
 						<li>brand[caron]</li>
 						<li>name[simply soft]</li>
 						<li>brand[red heart] name[solids]</li>
-						<li>(Only the first brand and name will be used)</li>
+						<li>(Any brand/name tags besides the first are treated as regular search text)</li>
 					</ul>
 				</div>
 			</div>
