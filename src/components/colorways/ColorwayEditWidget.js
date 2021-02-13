@@ -46,7 +46,7 @@ export default function ColorwayEditWidget(props) {
 					</label>
 					<label>
 						Image URLs (separate with line breaks)
-						<textarea name="colorwayImages" ref={register} />
+						<textarea name="colorwayImages" ref={register} defaultValue={currentColorway.images} />
 					</label>
 					{existingColorwayIsNotThisOne && <p className="error">Other colorway with that name already exists on this yarn</p>}
 					<input type="submit" value="Update" disabled={hasAnyError} />
