@@ -1,8 +1,8 @@
 import {useDispatch, useSelector} from "react-redux";
 import {useForm} from "react-hook-form";
 
-import {modalOpened, ModalNames} from "../../slices/modalsSlice";
-import {yarnEditModalSubmitted, selectYarnByID, selectYarnsByFullName} from "../../slices/yarnsSlice";
+import {modalOpened, yarnEditModalSubmitted} from "../../slices/modalsSlice";
+import {selectYarnByID, selectYarnsByFullName} from "../../slices/yarnsSlice";
 
 import Button from "../general/Button";
 import {ReactComponent as EditIcon} from "../../resources/edit.svg";
@@ -12,7 +12,7 @@ export default function YarnEditWidget(props) {
 	const {yarnID} = props;
 	const dispatch = useDispatch();
 	const currentYarn = useSelector(state => selectYarnByID(state, yarnID));
-	const modalName = ModalNames.yarnEdit;
+	const modalName = "yarnEdit";
 	const {register, handleSubmit, errors, watch} = useForm();
 
 	const brandWatcher = watch("yarnBrand", "");

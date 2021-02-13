@@ -1,7 +1,6 @@
 import {useDispatch} from "react-redux";
 
-import {modalOpened, modalClosed, ModalNames} from "../../slices/modalsSlice";
-import {colorwayDeleteModalSubmitted} from "../../slices/colorwaysSlice";
+import {modalOpened, modalClosed, colorwayDeleteModalSubmitted} from "../../slices/modalsSlice";
 
 import Button from "../general/Button";
 import {ReactComponent as DeleteIcon} from "../../resources/delete.svg";
@@ -10,7 +9,7 @@ import Modal from "../general/Modal";
 export default function ColorwayDeleteWidget(props) {
 	const {colorwayID} = props;
 	const dispatch = useDispatch();
-	const modalName = ModalNames.colorwayDelete;
+	const modalName = "colorwayDelete";
 
 	return (
 		<div className="ColorwayDeleteWidget">

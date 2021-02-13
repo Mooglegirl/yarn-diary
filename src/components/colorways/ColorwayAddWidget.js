@@ -2,19 +2,20 @@ import {useDispatch, useSelector} from "react-redux";
 import {useForm} from "react-hook-form";
 import {useHistory} from "react-router";
 
-import {modalOpened, ModalNames} from "../../slices/modalsSlice";
+import {modalOpened, colorwayAddModalSubmitted} from "../../slices/modalsSlice";
 import {selectYarnByID} from "../../slices/yarnsSlice";
-import {colorwayAddModalSubmitted, selectColorwaysByYarnIDAndName} from "../../slices/colorwaysSlice";
+import {selectColorwaysByYarnIDAndName} from "../../slices/colorwaysSlice";
 
 import Modal from "../general/Modal";
 import Button from "../general/Button";
 import {ReactComponent as AddIcon} from "../../resources/add.svg";
 
-export default function ColorwayAddWidget({yarnID}) {
+export default function ColorwayAddWidget(props) {
+	const {yarnID} = props;
 	const dispatch = useDispatch();
 	const history = useHistory();
 	const {register, handleSubmit, errors, watch} = useForm();
-	const modalName = ModalNames.colorwayAdd;
+	const modalName = "colorwayAdd";
 	const yarn = useSelector(state => selectYarnByID(state, yarnID));
 
 	const nameWatcher = watch("colorwayName", "");

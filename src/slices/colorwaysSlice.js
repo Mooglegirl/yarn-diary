@@ -1,7 +1,12 @@
-import {createSlice, createEntityAdapter, nanoid, createSelector} from "@reduxjs/toolkit";
+import {createSlice, createEntityAdapter, createSelector} from "@reduxjs/toolkit";
 
-import {yarnDeleteModalSubmitted} from "./yarnsSlice";
-import {optionsUpdateModalSubmitted} from "./modalsSlice";
+import {
+	optionsUpdateModalSubmitted,
+	colorwayAddModalSubmitted,
+	colorwayEditModalSubmitted,
+	colorwayDeleteModalSubmitted,
+	yarnDeleteModalSubmitted
+} from "./modalsSlice";
 import {compareFuncs} from "../extras/utils";
 
 const colorwaysAdapter = createEntityAdapter();
@@ -13,49 +18,21 @@ const initialState = colorwaysAdapter.getInitialState({
 const colorwaysSlice = createSlice({
 	name: "colorways",
 	initialState: initialState,
-	reducers: {
-		colorwayAddModalSubmitted: {
-			prepare(yarnID, name, comment, images) {
-				return {
-					payload: {
-						id: nanoid(),
-						yarnID,
-						name,
-						comment,
-						images,
-						dateAdded: new Date().toISOString(),
-						lastUpdated: new Date().toISOString()
-					}
-				}
-			},
-			reducer: colorwaysAdapter.addOne
-		},
-		colorwayEditModalSubmitted: {
-			prepare: (id, changes) => ({
-				payload: {
-					id,
-					changes: {
-						...changes,
-						lastUpdated: new Date().toISOString()
-					}
-				}
-			}),
-			reducer: colorwaysAdapter.updateOne
-		},
-		colorwayDeleteModalSubmitted: colorwaysAdapter.removeOne
-	},
 	extraReducers: builder => {
-		builder.addCase(yarnDeleteModalSubmitted, (state, action) => {
-			const colorwayIDsToDelete = state.ids.filter(cid => state.entities[cid].yarnID === action.payload);
-			colorwaysAdapter.removeMany(state, colorwayIDsToDelete);
-		}).addCase(optionsUpdateModalSubmitted, (state, action) => {
-			state.sortMethod = action.payload.colorwaySort;
-			state.displayMode = action.payload.colorwayDisplay;
-		});
+		builder
+			.addCase(colorwayAddModalSubmitted, colorwaysAdapter.addOne)
+			.addCase(colorwayEditModalSubmitted, colorwaysAdapter.updateOne)
+			.addCase(colorwayDeleteModalSubmitted, colorwaysAdapter.removeOne)
+			.addCase(yarnDeleteModalSubmitted, (state, action) => {
+				const colorwayIDsToDelete = state.ids.filter(cid => state.entities[cid].yarnID === action.payload);
+				colorwaysAdapter.removeMany(state, colorwayIDsToDelete);
+			}).addCase(optionsUpdateModalSubmitted, (state, action) => {
+				state.sortMethod = action.payload.colorwaySort;
+				state.displayMode = action.payload.colorwayDisplay;
+			});
 	}
 });
 
-export const {colorwayAddModalSubmitted, colorwayEditModalSubmitted, colorwayDeleteModalSubmitted} = colorwaysSlice.actions;
 export default colorwaysSlice.reducer;
 
 export const {

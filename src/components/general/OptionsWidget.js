@@ -1,7 +1,7 @@
 import {useDispatch, useSelector} from "react-redux";
 import {useForm} from "react-hook-form";
 
-import {modalOpened, ModalNames, optionsUpdateModalSubmitted} from "../../slices/modalsSlice";
+import {modalOpened, optionsUpdateModalSubmitted} from "../../slices/modalsSlice";
 
 import "./OptionsWidget.scss";
 import Button from "../general/Button";
@@ -10,7 +10,7 @@ import {ReactComponent as OptionsIcon} from "../../resources/options.svg";
 
 export default function OptionsUpdateWidget(props) {
 	const dispatch = useDispatch();
-	const modalName = ModalNames.optionsUpdate;
+	const modalName = "optionsUpdate";
 	const {register, handleSubmit} = useForm();
 
 	const handleFormSubmit = data => {

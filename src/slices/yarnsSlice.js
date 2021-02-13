@@ -1,6 +1,12 @@
-import {createSelector, createSlice, createEntityAdapter, nanoid} from "@reduxjs/toolkit";
+import {createSelector, createSlice, createEntityAdapter} from "@reduxjs/toolkit";
 
-import {optionsUpdateModalSubmitted} from "./modalsSlice";
+import {
+	optionsUpdateModalSubmitted,
+	yarnAddModalSubmitted,
+	yarnEditModalSubmitted,
+	yarnDeleteModalSubmitted,
+	colorwayAddModalSubmitted
+} from "./modalsSlice";
 import {compareFuncs} from "../extras/utils";
 
 const yarnsAdapter = createEntityAdapter();
@@ -14,53 +20,25 @@ const yarnsSlice = createSlice({
 	name: "yarns",
 	initialState: initialState,
 	reducers: {
-		yarnAddModalSubmitted: {
-			prepare: (brand, name, comment, images) => ({ 
-				payload: {
-					id: nanoid(),
-					brand,
-					name,
-					comment,
-					images,
-					dateAdded: new Date().toISOString(),
-					lastUpdated: new Date().toISOString()
-				}
-			}),
-			reducer: yarnsAdapter.addOne
-		},
-		yarnEditModalSubmitted: {
-			prepare: (id, changes) => ({
-				payload: {
-					id,
-					changes: {
-						...changes,
-						lastUpdated: new Date().toISOString()
-					}
-				}
-			}),
-			reducer: yarnsAdapter.updateOne
-		},
-		yarnDeleteModalSubmitted: yarnsAdapter.removeOne,
 		yarnSearchSubmitted(state, action) {
 			state.searchValue = action.payload;
 		}
 	},
 	extraReducers: builder => {
-		builder.addCase(optionsUpdateModalSubmitted, (state, action) => {
-			state.sortMethod = action.payload.yarnSort;
-			state.displayMode = action.payload.yarnDisplay;
-		}).addCase("colorways/colorwayAddModalSubmitted", (state, action) => {
-			// can't import action... causes circular dependency
-			// could probably refactor everything so all these modalSubmits live in modalsSlice
-			state.entities[action.payload.yarnID].lastUpdated = action.payload.lastUpdated;
-		});
+		builder
+			.addCase(yarnAddModalSubmitted, yarnsAdapter.addOne)
+			.addCase(yarnEditModalSubmitted, yarnsAdapter.updateOne)
+			.addCase(yarnDeleteModalSubmitted, yarnsAdapter.removeOne)
+			.addCase(optionsUpdateModalSubmitted, (state, action) => {
+				state.sortMethod = action.payload.yarnSort;
+				state.displayMode = action.payload.yarnDisplay;
+			}).addCase(colorwayAddModalSubmitted, (state, action) => {
+				state.entities[action.payload.yarnID].lastUpdated = action.payload.lastUpdated;
+			});
 	}
 });
 
 export const {
-	yarnAddModalSubmitted, 
-	yarnEditModalSubmitted, 
-	yarnDeleteModalSubmitted,
 	yarnSearchSubmitted
 } = yarnsSlice.actions;
 export default yarnsSlice.reducer;

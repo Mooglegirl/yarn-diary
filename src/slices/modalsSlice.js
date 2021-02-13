@@ -1,23 +1,16 @@
-import {createSlice, createAction} from "@reduxjs/toolkit";
-
-// if you need a new modal, just add it here and use it in a Modal component's modalName prop
-// then have your action name be formatted like ${modalName}ModalSubmitted
-export const ModalNames = Object.freeze({
-	yarnEdit: "yarnEdit",
-	yarnAdd: "yarnAdd",
-	yarnDelete: "yarnDelete",
-	colorwayAdd: "colorwayAdd",
-	colorwayEdit: "colorwayEdit",
-	colorwayDelete: "colorwayDelete",
-	optionsUpdate: "optionsUpdate"
-});
+import {createSlice, createAction, nanoid} from "@reduxjs/toolkit";
 
 const modalsSlice = createSlice({
 	name: "modals",
-	initialState: Object.values(ModalNames).reduce((names, key) => ({
-		...names,
-		[key]: false
-	}), {}),
+	initialState: {
+		yarnEdit: false,
+		yarnAdd: false,
+		yarnDelete: false,
+		colorwayAdd: false,
+		colorwayEdit: false,
+		colorwayDelete: false,
+		optionsUpdate: false
+	},
 	reducers: {
 		modalOpened(state, action) {
 			state[action.payload] = true;
@@ -37,11 +30,70 @@ const modalsSlice = createSlice({
 	}
 });
 
-// we don't need to do anything here besides close the modal (which the extraReducer handles),
-// but other slices will listen for this and update their respective options
-export const optionsUpdateModalSubmitted = createAction("modals/optionsUpdateModalSubmitted");
-
 export const {modalOpened, modalClosed} = modalsSlice.actions;
 export default modalsSlice.reducer;
-
 export const selectModalStateByName = (state, name) => state.modals[name];
+
+/*
+	while most of these actions are more relevant to the yarns or colorways slices,
+	some of them have ramifications in both, so putting them in those respective slices
+	causes circular dependencies; putting them all here seems to be the cleanest even
+	though this reducer doesn't do anything besides open/close them
+*/
+
+export const optionsUpdateModalSubmitted = createAction("modals/optionsUpdateModalSubmitted");
+
+export const yarnAddModalSubmitted = createAction("modals/yarnAddModalSubmitted", 
+	(brand, name, comment, images) => ({
+		payload: {
+			id: nanoid(),
+			brand,
+			name,
+			comment,
+			images,
+			dateAdded: new Date().toISOString(),
+			lastUpdated: new Date().toISOString()
+		}
+	})
+);
+
+export const colorwayAddModalSubmitted = createAction("modals/colorwayAddModalSubmitted",
+	(yarnID, name, comment, images) => ({
+		payload: {
+			id: nanoid(),
+			yarnID,
+			name,
+			comment,
+			images,
+			dateAdded: new Date().toISOString(),
+			lastUpdated: new Date().toISOString()
+		}
+	})
+);
+
+export const yarnEditModalSubmitted = createAction("modals/yarnEditModalSubmitted", 
+	(id, changes) => ({
+		payload: {
+			id,
+			changes: {
+				...changes,
+				lastUpdated: new Date().toISOString()
+			}
+		}
+	})
+);
+
+export const colorwayEditModalSubmitted = createAction("modals/colorwayEditModalSubmitted",
+	(id, changes) => ({
+		payload: {
+			id,
+			changes: {
+				...changes,
+				lastUpdated: new Date().toISOString()
+			}
+		}
+	})
+);
+
+export const yarnDeleteModalSubmitted = createAction("modals/yarnDeleteModalSubmitted");
+export const colorwayDeleteModalSubmitted = createAction("modals/colorwayDeleteModalSubmitted");

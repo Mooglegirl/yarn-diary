@@ -2,8 +2,8 @@ import {useDispatch, useSelector} from "react-redux";
 import {useForm} from "react-hook-form";
 import {useHistory} from "react-router-dom";
 
-import {yarnAddModalSubmitted, selectYarnsByFullName} from "../../slices/yarnsSlice";
-import {modalOpened, ModalNames} from "../../slices/modalsSlice";
+import {selectYarnsByFullName} from "../../slices/yarnsSlice";
+import {modalOpened, yarnAddModalSubmitted} from "../../slices/modalsSlice";
 
 import Modal from "../general/Modal";
 import Button from "../general/Button";
@@ -13,7 +13,7 @@ export default function YarnAddWidget(props) {
 	const dispatch = useDispatch();
 	const history = useHistory();
 	const {register, handleSubmit, errors, watch} = useForm();
-	const modalName = ModalNames.yarnAdd;
+	const modalName = "yarnAdd";
 
 	const brandWatcher = watch("yarnBrand", "");
 	const nameWatcher = watch("yarnName", "");

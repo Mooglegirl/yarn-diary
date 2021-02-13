@@ -1,7 +1,6 @@
 import {useDispatch} from "react-redux";
 
-import {modalOpened, modalClosed, ModalNames} from "../../slices/modalsSlice";
-import {yarnDeleteModalSubmitted} from "../../slices/yarnsSlice";
+import {modalOpened, modalClosed, yarnDeleteModalSubmitted} from "../../slices/modalsSlice";
 
 import Button from "../general/Button";
 import {ReactComponent as DeleteIcon} from "../../resources/delete.svg";
@@ -10,7 +9,7 @@ import Modal from "../general/Modal";
 export default function YarnDeleteWidget(props) {
 	const {yarnID} = props;
 	const dispatch = useDispatch();
-	const modalName = ModalNames.yarnDelete;
+	const modalName = "yarnDelete";
 
 	return (
 		<div className="YarnDeleteWidget">
