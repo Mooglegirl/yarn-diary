@@ -33,14 +33,14 @@ export default function ColorwayAddWidget(props) {
 		<div className="ColorwayAddWidget">
 			<Button handleClick={() => dispatch(modalOpened(modalName))} icon={AddIcon}>Add New Colorway</Button>
 			<Modal modalName={modalName} options={{closeOnOverlayClick: false}}>
-				<p>Adding new colorway for {yarn.brand} {yarn.name}</p>
+				<h3>Add New Colorway - {yarn.brand} {yarn.name}</h3>
 				<form onSubmit={handleSubmit(handleAddFormSubmit)}>
 					<label>
 						Name
 						<input type="text" name="colorwayName" ref={register({required: true})} className={errors.colorwayName ? "has-error" : ""} />
 					</label>
 					<label>
-						Comment (<a href="https://commonmark.org/help/" target="_blank" rel="noreferrer">Markdown supported</a>)
+						Comment (<a href="https://commonmark.org/help/" target="_blank" rel="noreferrer">markdown supported</a>)
 						<textarea name="colorwayComment" ref={register} />
 					</label>
 					<label>

@@ -31,6 +31,7 @@ export default function YarnAddWidget(props) {
 		<div className="YarnAddWidget">
 			<Button handleClick={() => dispatch(modalOpened(modalName))} icon={AddIcon}>Add New Yarn</Button>
 			<Modal modalName={modalName} options={{closeOnOverlayClick: false}}>
+				<h3>Add New Yarn</h3>
 				<form onSubmit={handleSubmit(handleAddFormSubmit)}>
 				  <label>
 				    Brand
@@ -41,7 +42,7 @@ export default function YarnAddWidget(props) {
 				    <input type="text" name="yarnName" ref={register({required: true})} className={errors.yarnName ? "has-error" : ""} />
 				  </label>
 				  <label>
-				  	Comment (<a href="https://commonmark.org/help/" target="_blank" rel="noreferrer">Markdown supported</a>)
+				  	Comment (<a href="https://commonmark.org/help/" target="_blank" rel="noreferrer">markdown supported</a>)
 				  	<textarea name="yarnComment" ref={register} />
 				  </label>
 				  <label>

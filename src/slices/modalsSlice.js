@@ -9,7 +9,8 @@ const modalsSlice = createSlice({
 		colorwayAdd: false,
 		colorwayEdit: false,
 		colorwayDelete: false,
-		optionsUpdate: false
+		optionsUpdate: false,
+		backupRestore: false
 	},
 	reducers: {
 		modalOpened(state, action) {

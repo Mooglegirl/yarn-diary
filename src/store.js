@@ -7,9 +7,10 @@ import storage from "redux-persist/lib/storage";
 import autoMergeLevel2 from "redux-persist/lib/stateReconciler/autoMergeLevel2";
 
 import rootReducer from "./reducer";
+export const PERSIST_KEY = "yarnDiary";
 
 const persistConfig = {
-	key: "yarnDiary",
+	key: PERSIST_KEY,
 	storage,
 	stateReconciler: autoMergeLevel2,
 	whitelist: ["yarns", "colorways"]

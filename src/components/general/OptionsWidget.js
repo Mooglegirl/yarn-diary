@@ -112,6 +112,7 @@ export default function OptionsUpdateWidget(props) {
 		<div className="OptionsWidget">
 			<Button handleClick={() => dispatch(modalOpened(modalName))} icon={OptionsIcon}>Options</Button>
 			<Modal modalName={modalName}>
+				<h3>Options</h3>
 				<form onSubmit={handleSubmit(handleFormSubmit)}>
 					{Object.keys(radioData).map(radioGroupName => (
 						<fieldset key={radioGroupName}>
@@ -124,7 +125,7 @@ export default function OptionsUpdateWidget(props) {
 							))}
 						</fieldset>
 					))}
-					<input type="submit" value="Update" />
+					<input type="submit" value="Save" />
 				</form>
 			</Modal>
 		</div>
