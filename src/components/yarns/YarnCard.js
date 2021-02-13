@@ -22,7 +22,10 @@ export default function YarnCard(props) {
 
 	return (
 		<Card sections={[
-			(screenWidth > breakpoint || isCardMode) && !!yarn.images && <Link to={`/yarns/${yarnID}`}><img src={yarn.images.split("\n")[0]} alt="Yarn" /></Link>,
+			(screenWidth > breakpoint || isCardMode) && !!yarn.images && 
+				<Link to={`/yarns/${yarnID}`}>
+					<div className="Card__img" style={{backgroundImage: `url("${yarn.images.split("\n")[0]}")`}} />
+				</Link>,
 			{isHeader: true, content: <Link to={`/yarns/${yarnID}`}>{yarn.brand} {yarn.name}</Link>},
 			<>
 				{<span>Color{screenWidth > breakpoint ? "way" : ""}s: </span>}

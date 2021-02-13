@@ -17,7 +17,10 @@ export default function ColorwayCard(props) {
 
 	return (
 		<Card sections={[
-			(screenWidth > breakpoint || isCardMode) && !!colorway.images && <Link to={`${url}/colorways/${colorwayID}`}><img src={colorway.images.split("\n")[0]} alt="Yarn" /></Link>,
+			(screenWidth > breakpoint || isCardMode) && !!colorway.images && 
+				<Link to={`${url}/colorways/${colorwayID}`}>
+					<div className="Card__img" style={{backgroundImage: `url("${colorway.images.split("\n")[0]}")`}} />
+				</Link>,
 			{isHeader: true, content: <Link to={`${url}/colorways/${colorwayID}`}>{colorway.name}</Link>},
 			!!colorway.comment && <p>{colorway.comment}</p>
 		]} />

@@ -43,6 +43,16 @@ $gutter: 10px;
 		-webkit-line-clamp: 4;
 	}
 
+	&__img {
+		background-position: center;
+		background-repeat: no-repeat;
+		background-size: cover;
+		margin: -8px;
+
+		width: calc(100% + 16px);
+		height: 200px;
+	}
+
 	img {
 		display: block;
 		margin: -8px;
@@ -94,6 +104,10 @@ $gutter: 10px;
 		&:last-child {
 			flex-grow: 1;
 		}
+	}
+
+	&__img {
+		height: 60px;
 	}
 
 	p {
