@@ -26,6 +26,9 @@
 			flex-basis: 200px;
 			float: right;
 			margin-left: 15px;
+
+			position: sticky;
+			top: 67px;
 		}
 
 		@include mobile() {
