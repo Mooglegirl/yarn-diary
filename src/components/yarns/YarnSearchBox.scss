@@ -28,6 +28,8 @@
 	}
 
 	&__tooltip-icon {
+		cursor: pointer;
+		
 		&:hover + .YarnSearchBox__tooltip-popup {
 			display: block;
 		}
