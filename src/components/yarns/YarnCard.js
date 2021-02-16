@@ -6,6 +6,7 @@ import {selectSortedColorwaysByYarnID} from "../../slices/colorwaysSlice";
 import {selectScreenWidth} from "../../slices/uiSlice";
 
 import Card from "../general/Card";
+import Markdown from "../general/Markdown";
 
 export default function YarnCard(props) {
 	const yarnID = props.id;
@@ -31,7 +32,7 @@ export default function YarnCard(props) {
 				{<span>Color{screenWidth > breakpoint ? "way" : ""}s: </span>}
 				{colorwayList}
 			</>,
-			(screenWidth > breakpoint || isCardMode) && !!yarn.comment && <p>{yarn.comment}</p>
+			(screenWidth > breakpoint || isCardMode) && !!yarn.comment && <Markdown isInCard={true}>{yarn.comment}</Markdown>
 		]} />
 	);
 }

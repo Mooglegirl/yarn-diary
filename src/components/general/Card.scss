@@ -36,8 +36,11 @@ $gutter: 10px;
 	}
 
 	p {
-		display: -webkit-box;
 		margin: 0;
+	}
+
+	.Markdown {
+		display: -webkit-box;
 		overflow: hidden;
 		-webkit-box-orient: vertical;
 		-webkit-line-clamp: 4;
