@@ -9,8 +9,9 @@ import HomePage from "./general//HomePage";
 import YarnPage from "./yarns/YarnPage";
 import ColorwayPage from "./colorways/ColorwayPage";
 import Navbar from "./general/Navbar";
+import BackToTop from "./general/BackToTop";
 
-function ScrollToTop() {
+function AutoScrollToTopOnNav() {
   const {pathname} = useLocation();
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -31,7 +32,7 @@ export default function App(props) {
 
   return (
     <Router>
-      <ScrollToTop />
+      <AutoScrollToTopOnNav />
       <div className="App">
         <Navbar />
       	<Switch>
@@ -39,6 +40,7 @@ export default function App(props) {
           <Route exact path="/yarns/:yarnID" component={YarnPage} />
           <Route path="/yarns/:yarnID/colorways/:colorwayID" component={ColorwayPage} />
         </Switch>
+        <BackToTop />
       </div>
     </Router>
   );
