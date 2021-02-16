@@ -1,4 +1,4 @@
-import {BrowserRouter as Router, Switch, Route} from "react-router-dom";
+import {BrowserRouter as Router, Switch, Route, useLocation} from "react-router-dom";
 import {useDispatch} from "react-redux";
 import {useEffect} from "react";
 
@@ -10,7 +10,16 @@ import YarnPage from "./yarns/YarnPage";
 import ColorwayPage from "./colorways/ColorwayPage";
 import Navbar from "./general/Navbar";
 
-function App(props) {
+function ScrollToTop() {
+  const {pathname} = useLocation();
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [pathname]);
+
+  return null;
+}
+
+export default function App(props) {
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -22,6 +31,7 @@ function App(props) {
 
   return (
     <Router>
+      <ScrollToTop />
       <div className="App">
         <Navbar />
       	<Switch>
@@ -33,5 +43,3 @@ function App(props) {
     </Router>
   );
 }
-
-export default App;
