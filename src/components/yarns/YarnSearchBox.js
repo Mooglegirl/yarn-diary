@@ -1,5 +1,6 @@
 import {useForm} from "react-hook-form";
 import {useDispatch, useSelector} from "react-redux";
+import {useEffect} from "react";
 
 import {yarnSearchSubmitted} from "../../slices/yarnsSlice";
 
@@ -27,6 +28,19 @@ export default function YarnSearchBox(props) {
 		setValue("yarnSearch", "");
 		handleSubmit(handleSearchSubmit)();
 	};
+
+	// wipe search query when leaving the page
+	// this is a substitute for using nested persist reducers to blacklist this part of the store, two layers deep
+	// (this way we have just one storage entry to make backup/restore simple)
+	useEffect(() => {
+		const wipeSearch = () => {
+			document.body.style.display = "none"; // reduce flicker
+			handleSearchClear();
+		};
+
+		window.addEventListener("beforeunload", wipeSearch);
+		return () => window.removeEventListener("beforeunload", wipeSearch);
+	});
 
 	return (
 		<div className="YarnSearchBox">
