@@ -8,6 +8,7 @@ import ColorwayList from "../colorways/ColorwayList";
 import YarnEditWidget from "../yarns/YarnEditWidget";
 import YarnDeleteWidget from "../yarns/YarnDeleteWidget";
 import ColorwayAddWidget from "../colorways/ColorwayAddWidget";
+import TagsEditWidget from "../tags/TagsEditWidget";
 import PageWithSidebar from "../general/PageWithSidebar";
 import ImageGallery from "../general/ImageGallery";
 
@@ -30,6 +31,7 @@ export default function YarnPage(props) {
 				</>}
 				sidebar={<>
 					<YarnEditWidget yarnID={yarnID} />
+					<TagsEditWidget yarnID={yarnID} />
 					<ColorwayAddWidget yarnID={yarnID} />
 					<YarnDeleteWidget yarnID={yarnID} />
 				</>}

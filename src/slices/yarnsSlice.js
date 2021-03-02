@@ -5,7 +5,8 @@ import {
 	yarnAddModalSubmitted,
 	yarnEditModalSubmitted,
 	yarnDeleteModalSubmitted,
-	colorwayAddModalSubmitted
+	colorwayAddModalSubmitted,
+	tagsEditModalSubmitted
 } from "./modalsSlice";
 import {compareFuncs} from "../extras/utils";
 
@@ -34,6 +35,11 @@ const yarnsSlice = createSlice({
 				state.displayMode = action.payload.yarnDisplay;
 			}).addCase(colorwayAddModalSubmitted, (state, action) => {
 				state.entities[action.payload.yarnID].lastUpdated = action.payload.lastUpdated;
+			}).addCase(tagsEditModalSubmitted, (state, action) => {
+				if(!action.payload.yarnID) return;
+				const yarn = state.entities[action.payload.yarnID];
+				yarn.tags = action.payload.tags;
+				yarn.lastUpdated = action.payload.timestamp;
 			});
 	}
 });
@@ -90,3 +96,5 @@ export const selectYarnsByFullName = createSelector(
 		return yarns.filter(y => y.brand.toLowerCase() === brand.toLowerCase() && y.name.toLowerCase() === name.toLowerCase());
 	}
 );
+
+export const selectTagNamesByYarnID = (state, yarnID) => yarnID ? state.yarns.entities[yarnID].tags.join(", ") : "";

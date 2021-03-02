@@ -13,7 +13,7 @@ const persistConfig = {
 	key: PERSIST_KEY,
 	storage,
 	stateReconciler: autoMergeLevel2,
-	whitelist: ["yarns", "colorways"]
+	whitelist: ["yarns", "colorways", "tags"]
 };
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

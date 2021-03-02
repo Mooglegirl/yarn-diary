@@ -10,7 +10,8 @@ const modalsSlice = createSlice({
 		colorwayEdit: false,
 		colorwayDelete: false,
 		optionsUpdate: false,
-		backupRestore: false
+		backupRestore: false,
+		tagsEdit: false
 	},
 	reducers: {
 		modalOpened(state, action) {
@@ -36,8 +37,8 @@ export default modalsSlice.reducer;
 export const selectModalStateByName = (state, name) => state.modals[name];
 
 /*
-	while most of these actions are more relevant to the yarns or colorways slices,
-	some of them have ramifications in both, so putting them in those respective slices
+	while most of these actions are more relevant to other slices (yarns, colorways, etc),
+	some of them have ramifications in multiple, so putting them in those respective slices
 	causes circular dependencies; putting them all here seems to be the cleanest even
 	though this reducer doesn't do anything besides open/close them
 */
@@ -98,3 +99,14 @@ export const colorwayEditModalSubmitted = createAction("modals/colorwayEditModal
 
 export const yarnDeleteModalSubmitted = createAction("modals/yarnDeleteModalSubmitted");
 export const colorwayDeleteModalSubmitted = createAction("modals/colorwayDeleteModalSubmitted");
+
+export const tagsEditModalSubmitted = createAction("modals/tagsEditModalSubmitted",
+	(tags, yarnID, colorwayID) => ({
+		payload: {
+			tags: tags || [],
+			yarnID: yarnID || null,
+			colorwayID: colorwayID || null,
+			timestamp: new Date().toISOString()
+		}
+	})
+);
