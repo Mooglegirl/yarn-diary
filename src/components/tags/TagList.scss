@@ -1,0 +1,20 @@
+.TagList {
+	display: flex;
+	
+	&:not(:empty) {
+		margin-bottom: 15px;
+	}
+
+	&__tag {
+		background-color: #e4effd;
+		border: 1px solid black;
+		border-radius: 50px;
+		cursor: pointer;
+		margin-right: 8px;
+		padding: 6px 14px;
+
+		&:hover {
+			background-color: #f5f9ff;
+		}
+	}
+}

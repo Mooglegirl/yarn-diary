@@ -5,6 +5,9 @@ import {tagsEditModalSubmitted} from "./modalsSlice";
 const tagsAdapter = createEntityAdapter();
 const initialState = tagsAdapter.getInitialState();
 
+// this is just to handle mapping tags to descriptions
+// what tags a yarn or color has is handled in those respective slices
+
 const tagsSlice = createSlice({
 	name: "tags",
 	initialState,

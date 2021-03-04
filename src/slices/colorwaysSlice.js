@@ -5,7 +5,8 @@ import {
 	colorwayAddModalSubmitted,
 	colorwayEditModalSubmitted,
 	colorwayDeleteModalSubmitted,
-	yarnDeleteModalSubmitted
+	yarnDeleteModalSubmitted,
+	tagsEditModalSubmitted
 } from "./modalsSlice";
 import {compareFuncs} from "../extras/utils";
 
@@ -29,6 +30,11 @@ const colorwaysSlice = createSlice({
 			}).addCase(optionsUpdateModalSubmitted, (state, action) => {
 				state.sortMethod = action.payload.colorwaySort;
 				state.displayMode = action.payload.colorwayDisplay;
+			}).addCase(tagsEditModalSubmitted, (state, action) => {
+				if(!action.payload.colorwayID) return;
+				const colorway = state.entities[action.payload.colorwayID];
+				colorway.tags = action.payload.tags;
+				colorway.lastUpdated = action.payload.timestamp;
 			});
 	}
 });
@@ -69,4 +75,11 @@ export const selectColorwaysByYarnIDAndName = createSelector(
 		const {yarnID, name} = colorwayData;
 		return colorways.filter(c => c.name.toLowerCase() === name.toLowerCase() && c.yarnID === yarnID);
 	}
+);
+
+export const selectTagsByColorwayID = (state, colorwayID) => colorwayID ? state.colorways.entities[colorwayID].tags || [] : [];
+
+export const selectTagNamesByColorwayID = createSelector(
+	selectTagsByColorwayID,
+	tags => tags.join(", ")
 );

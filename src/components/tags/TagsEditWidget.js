@@ -3,6 +3,7 @@ import {useForm} from "react-hook-form";
 
 import {modalOpened, tagsEditModalSubmitted} from "../../slices/modalsSlice";
 import {selectTagNamesByYarnID} from "../../slices/yarnsSlice";
+import {selectTagNamesByColorwayID} from "../../slices/colorwaysSlice";
 
 import Modal from "../general/Modal";
 import Button from "../general/Button";
@@ -14,7 +15,7 @@ export default function TagsEditWidget(props) {
 	const modalName = "tagsEdit";
 
 	const existingYarnTags = useSelector(state => selectTagNamesByYarnID(state, props.yarnID));
-	const existingColorwayTags = ""; // TODO
+	const existingColorwayTags = useSelector(state => selectTagNamesByColorwayID(state, props.colorwayID));
 
 	const handleEditFormSubmit = data => {
 		dispatch(tagsEditModalSubmitted(

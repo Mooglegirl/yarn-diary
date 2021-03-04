@@ -97,4 +97,9 @@ export const selectYarnsByFullName = createSelector(
 	}
 );
 
-export const selectTagNamesByYarnID = (state, yarnID) => yarnID ? state.yarns.entities[yarnID].tags.join(", ") : "";
+export const selectTagsByYarnID = (state, yarnID) => yarnID ? state.yarns.entities[yarnID].tags || [] : [];
+
+export const selectTagNamesByYarnID = createSelector(
+	selectTagsByYarnID,
+	tags => tags.join(", ")
+);

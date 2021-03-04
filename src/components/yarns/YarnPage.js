@@ -11,6 +11,7 @@ import ColorwayAddWidget from "../colorways/ColorwayAddWidget";
 import TagsEditWidget from "../tags/TagsEditWidget";
 import PageWithSidebar from "../general/PageWithSidebar";
 import ImageGallery from "../general/ImageGallery";
+import TagList from "../tags/TagList";
 
 export default function YarnPage(props) {
 	const {yarnID} = useParams();
@@ -23,6 +24,7 @@ export default function YarnPage(props) {
 				content={<>
 					<h2>Yarn Brand: {yarn.brand}</h2>
 					<h2>Yarn Name: {yarn.name}</h2>
+					<TagList yarnID={yarnID} />
 					{yarn.comment && <Markdown>{yarn.comment}</Markdown>}
 					<h3>Colorways:</h3>
 					<ColorwayList yarnID={yarnID} />
