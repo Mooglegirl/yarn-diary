@@ -29,19 +29,6 @@ export default function YarnSearchBox(props) {
 		handleSubmit(handleSearchSubmit)();
 	};
 
-	// wipe search query when leaving the page
-	// this is a substitute for using nested persist reducers to blacklist this part of the store, two layers deep
-	// (this way we have just one storage entry to make backup/restore simple)
-	useEffect(() => {
-		const wipeSearch = () => {
-			document.body.style.display = "none"; // reduce flicker
-			handleSearchClear();
-		};
-
-		window.addEventListener("beforeunload", wipeSearch);
-		return () => window.removeEventListener("beforeunload", wipeSearch);
-	});
-
 	return (
 		<div className="YarnSearchBox">
 			<input type="text" name="yarnSearch" ref={register} defaultValue={defaultSearchValue} placeholder="Search yarns" onKeyPress={handleInputKeyPress} />
