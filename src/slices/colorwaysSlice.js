@@ -83,3 +83,9 @@ export const selectTagNamesByColorwayID = createSelector(
 	selectTagsByColorwayID,
 	tags => tags.join(", ")
 );
+
+export const selectColorwayIDsByTag = createSelector(
+	selectColorwayEntities,
+	(state, tag) => tag,
+	(colorways, tag) => Object.keys(colorways).filter(colorwayID => colorways[colorwayID].tags && colorways[colorwayID].tags.filter(t => t === tag).length > 0)
+);

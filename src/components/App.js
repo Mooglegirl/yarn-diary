@@ -9,6 +9,7 @@ import "./App.scss";
 import HomePage from "./general//HomePage";
 import YarnPage from "./yarns/YarnPage";
 import ColorwayPage from "./colorways/ColorwayPage";
+import TagPage from "./tags/TagPage";
 import Navbar from "./general/Navbar";
 import BackToTop from "./general/BackToTop";
 
@@ -54,6 +55,7 @@ export default function App(props) {
           <Route exact path="/" component={HomePage} />
           <Route exact path="/yarns/:yarnID" component={YarnPage} />
           <Route path="/yarns/:yarnID/colorways/:colorwayID" component={ColorwayPage} />
+          <Route path="/tags/:tagID" component={TagPage} />
         </Switch>
         <BackToTop />
       </div>

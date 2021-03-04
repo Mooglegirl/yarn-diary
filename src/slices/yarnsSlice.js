@@ -103,3 +103,9 @@ export const selectTagNamesByYarnID = createSelector(
 	selectTagsByYarnID,
 	tags => tags.join(", ")
 );
+
+export const selectYarnIDsByTag = createSelector(
+	selectYarnEntities,
+	(state, tag) => tag,
+	(yarns, tag) => Object.keys(yarns).filter(yarnID => yarns[yarnID].tags && yarns[yarnID].tags.filter(t => t === tag).length > 0)
+);

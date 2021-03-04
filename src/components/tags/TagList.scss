@@ -1,20 +1,24 @@
 .TagList {
 	display: flex;
+	flex-wrap: wrap;
 	
 	&:not(:empty) {
-		margin-bottom: 15px;
+		margin-bottom: 8px;
 	}
 
 	&__tag {
 		background-color: #e4effd;
 		border: 1px solid black;
 		border-radius: 50px;
+		color: black;
 		cursor: pointer;
+		margin-bottom: 8px;
 		margin-right: 8px;
 		padding: 6px 14px;
 
 		&:hover {
 			background-color: #f5f9ff;
+			text-decoration: none;
 		}
 	}
 }

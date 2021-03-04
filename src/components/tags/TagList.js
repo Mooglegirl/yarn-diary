@@ -1,4 +1,5 @@
 import {useSelector} from "react-redux";
+import {Link} from "react-router-dom";
 
 import {selectTagsByYarnID} from "../../slices/yarnsSlice";
 import {selectTagsByColorwayID} from "../../slices/colorwaysSlice";
@@ -12,7 +13,7 @@ export default function TagList(props) {
 
 	return (
 		<div className="TagList">{tags.map(tag => (
-			<div className="TagList__tag" key={tag}>{tag}</div>
+			<Link to={`/tags/${tag}`} className="TagList__tag" key={tag}>{tag}</Link>
 		))}</div>
 	);
 }
