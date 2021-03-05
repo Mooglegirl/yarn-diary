@@ -9,6 +9,7 @@ import PageWithSidebar from "../general/PageWithSidebar";
 import CardList from "../general/CardList";
 import YarnCard from "../yarns/YarnCard";
 import ColorwayCard from "../colorways/ColorwayCard";
+import TagMetaEditWidget from "../tags/TagMetaEditWidget";
 
 export default function TagPage(props) {
 	const {tagID} = useParams();
@@ -42,7 +43,7 @@ export default function TagPage(props) {
 					</CardList>
 				</>}
 				sidebar={<>
-					TBA
+					<TagMetaEditWidget tag={tagID} />
 				</>}
 			/>
 		</div>

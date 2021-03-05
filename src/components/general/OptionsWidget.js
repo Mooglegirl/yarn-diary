@@ -19,7 +19,7 @@ export default function OptionsUpdateWidget(props) {
 
 	const radioData = {
 		yarnDisplay: {
-			label: "Yarn display (on yarn list)",
+			label: "Yarn lists display",
 			current: useSelector(state => state.yarns.displayMode),
 			radios: [
 				{
@@ -33,7 +33,7 @@ export default function OptionsUpdateWidget(props) {
 			]
 		},
 		colorwayDisplay: {
-			label: "Colorway display (on yarn pages)",
+			label: "Colorway lists display",
 			current: useSelector(state => state.colorways.displayMode),
 			radios: [
 				{

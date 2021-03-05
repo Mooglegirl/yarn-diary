@@ -24,12 +24,19 @@ export default function Breadcrumbs(props) {
 	const colorwayID = !!parsedColorwayID ? parsedColorwayID[0] : null;
 	const colorway = useSelector(state => selectColorwayByID(state, colorwayID));
 
+	const parsedTag = pathname.match(/(?<=\/tags\/).*/);
+	const tag = !!parsedTag ? decodeURIComponent(parsedTag[0]) : null;
+
 	if(yarn) {
 		crumbs.push({name: `${yarn.brand} ${yarn.name}`, path: !!colorway ? `/yarns/${yarnID}` : null});
 	}
 
 	if(colorway) {
 		crumbs.push({name: colorway.name});
+	}
+
+	if(tag) {
+		crumbs.push({name: "Tag: " + tag});
 	}
 
 	return (

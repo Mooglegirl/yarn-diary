@@ -19,7 +19,7 @@ export default function TagsEditWidget(props) {
 
 	const handleEditFormSubmit = data => {
 		dispatch(tagsEditModalSubmitted(
-			[...new Set(data.tags.split(",").map(tag => tag.trim()).filter(tag => !!tag))],
+			[...new Set(data.tags.split(",").map(tag => tag.trim()).filter(tag => !!tag))], // dedupe tags
 			props.yarnID,
 			props.colorwayID
 		));

@@ -87,5 +87,19 @@ export const selectTagNamesByColorwayID = createSelector(
 export const selectColorwayIDsByTag = createSelector(
 	selectColorwayEntities,
 	(state, tag) => tag,
-	(colorways, tag) => Object.keys(colorways).filter(colorwayID => colorways[colorwayID].tags && colorways[colorwayID].tags.filter(t => t === tag).length > 0)
+	state => state.colorways.sortMethod,
+	(colorways, tag, sortMethod) => {
+		const filteredIDs = Object.keys(colorways).filter(colorwayID => colorways[colorwayID].tags && colorways[colorwayID].tags.filter(t => t === tag).length > 0);
+
+		const compareFunc = compareFuncs[sortMethod];
+		if(!compareFunc) {
+			return filteredIDs;
+		}
+
+		return filteredIDs.sort((a, b) => {
+			const aColor = colorways[a];
+			const bColor = colorways[b];
+			return compareFunc(aColor, bColor);
+		})
+	}
 );

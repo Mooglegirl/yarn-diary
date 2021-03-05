@@ -11,7 +11,8 @@ const modalsSlice = createSlice({
 		colorwayDelete: false,
 		optionsUpdate: false,
 		backupRestore: false,
-		tagsEdit: false
+		tagsEdit: false,
+		tagMetaEdit: false
 	},
 	reducers: {
 		modalOpened(state, action) {
@@ -107,6 +108,17 @@ export const tagsEditModalSubmitted = createAction("modals/tagsEditModalSubmitte
 			yarnID: yarnID || null,
 			colorwayID: colorwayID || null,
 			timestamp: new Date().toISOString()
+		}
+	})
+);
+
+export const tagMetaEditModalSubmitted = createAction("modals/tagMetaEditModalSubmitted",
+	(tagID, tagComment) => ({
+		payload: {
+			id: tagID,
+			changes: {
+				comment: tagComment
+			}
 		}
 	})
 );

@@ -55,6 +55,20 @@ export const {
 	selectAll: selectAllYarns
 } = yarnsAdapter.getSelectors(state => state.yarns);
 
+function sortYarnIDs(yarnIDs, allYarns, sortMethod) {
+	const compareFunc = compareFuncs[sortMethod];
+
+	if(!compareFunc) {
+		return yarnIDs;
+	}
+
+	return yarnIDs.sort((a, b) => {
+		const aYarn = allYarns[a];
+		const bYarn = allYarns[b];
+		return compareFunc(aYarn, bYarn);
+	});
+}
+
 export const selectDisplayedYarnIDs = createSelector(
 	selectYarnEntities,
 	state => state.yarns.searchValue.toLowerCase(),
@@ -75,16 +89,7 @@ export const selectDisplayedYarnIDs = createSelector(
 			return matchesBrand && matchesName && matchesRegularSearch;
 		});
 
-		const compareFunc = compareFuncs[sortMethod];
-		if(!compareFunc) {
-			return filteredYarnIDs;
-		}
-
-		return filteredYarnIDs.sort((a, b) => {
-			const aYarn = yarns[a];
-			const bYarn = yarns[b];
-			return compareFunc(aYarn, bYarn);
-		});
+		return sortYarnIDs(filteredYarnIDs, yarns, sortMethod);
 	}
 );
 
@@ -107,5 +112,9 @@ export const selectTagNamesByYarnID = createSelector(
 export const selectYarnIDsByTag = createSelector(
 	selectYarnEntities,
 	(state, tag) => tag,
-	(yarns, tag) => Object.keys(yarns).filter(yarnID => yarns[yarnID].tags && yarns[yarnID].tags.filter(t => t === tag).length > 0)
+	state => state.yarns.sortMethod,
+	(yarns, tag, sortMethod) => {
+		const filteredYarnIDs = Object.keys(yarns).filter(yarnID => yarns[yarnID].tags && yarns[yarnID].tags.filter(t => t === tag).length > 0);
+		return sortYarnIDs(filteredYarnIDs, yarns, sortMethod);
+	}
 );
