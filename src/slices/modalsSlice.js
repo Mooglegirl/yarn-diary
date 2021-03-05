@@ -113,11 +113,12 @@ export const tagsEditModalSubmitted = createAction("modals/tagsEditModalSubmitte
 );
 
 export const tagMetaEditModalSubmitted = createAction("modals/tagMetaEditModalSubmitted",
-	(tagID, tagComment) => ({
+	(tagID, tagComment, tagColor) => ({
 		payload: {
 			id: tagID,
 			changes: {
-				comment: tagComment
+				comment: tagComment,
+				color: tagColor
 			}
 		}
 	})

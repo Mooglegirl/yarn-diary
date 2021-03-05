@@ -1,4 +1,4 @@
-import {createSlice, createEntityAdapter} from "@reduxjs/toolkit";
+import {createSlice, createEntityAdapter, createSelector} from "@reduxjs/toolkit";
 
 import {tagsEditModalSubmitted, tagMetaEditModalSubmitted} from "./modalsSlice";
 
@@ -17,7 +17,8 @@ const tagsSlice = createSlice({
 				const tagEntities = action.payload.tags.reduce((tagEntities, tagName) => {
 					tagEntities.push({
 						id: tagName,
-						comment: state.entities[tagName] ? state.entities[tagName].comment : ""
+						comment: state.entities[tagName] ? state.entities[tagName].comment : "",
+						color: state.entities[tagName] ? state.entities[tagName].color : ""
 					});
 
 					return tagEntities;
@@ -30,3 +31,16 @@ const tagsSlice = createSlice({
 });
 
 export default tagsSlice.reducer;
+
+export const {
+	selectEntities: selectTagEntities
+} = tagsAdapter.getSelectors(state => state.tags);
+
+export const selectTagColorsByIDs = createSelector(
+	selectTagEntities,
+	(state, tagIDs) => tagIDs,
+	(tagEntities, tagIDs) => tagIDs.reduce((result, tagID) => {
+		result[tagID] = tagEntities[tagID].color;
+		return result;
+	}, {})
+);

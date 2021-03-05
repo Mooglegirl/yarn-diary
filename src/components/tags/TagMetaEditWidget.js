@@ -15,7 +15,7 @@ export default function TagCommentEditWidget(props) {
 	const {register, handleSubmit} = useForm();
 
 	const handleFormSubmit = data => {
-		dispatch(tagMetaEditModalSubmitted(tag, data.tagComment));
+		dispatch(tagMetaEditModalSubmitted(tag, data.tagComment, data.tagColor));
 	};
 
 	return (
@@ -27,6 +27,10 @@ export default function TagCommentEditWidget(props) {
 					<label>
 						Comment (<a href="https://commonmark.org/help/" target="_blank" rel="noreferrer">markdown supported</a>)
 						<textarea name="tagComment" ref={register} defaultValue={currentTag.comment} />
+					</label>
+					<label>
+						Color
+						<input type="color" name="tagColor" ref={register} defaultValue={currentTag.color} />
 					</label>
 					<input type="submit" value="Update" />
 				</form>
