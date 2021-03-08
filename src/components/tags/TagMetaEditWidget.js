@@ -8,14 +8,14 @@ import {ReactComponent as EditIcon} from "../../resources/edit.svg";
 import Modal from "../general/Modal";
 
 export default function TagCommentEditWidget(props) {
-	const {tag} = props;
+	const {tagID} = props;
 	const dispatch = useDispatch();
-	const currentTag = useSelector(state => state.tags.entities[tag]);
+	const currentTag = useSelector(state => state.tags.entities[tagID]);
 	const modalName = "tagMetaEdit";
 	const {register, handleSubmit} = useForm();
 
 	const handleFormSubmit = data => {
-		dispatch(tagMetaEditModalSubmitted(tag, data.tagComment, data.tagColor));
+		dispatch(tagMetaEditModalSubmitted(tagID, data.tagComment, data.tagColor));
 	};
 
 	return (

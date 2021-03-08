@@ -12,7 +12,8 @@ const modalsSlice = createSlice({
 		optionsUpdate: false,
 		backupRestore: false,
 		tagsEdit: false,
-		tagMetaEdit: false
+		tagMetaEdit: false,
+		tagDelete: false
 	},
 	reducers: {
 		modalOpened(state, action) {
@@ -123,3 +124,5 @@ export const tagMetaEditModalSubmitted = createAction("modals/tagMetaEditModalSu
 		}
 	})
 );
+
+export const tagDeleteModalSubmitted = createAction("modals/tagDeleteModalSubmitted");

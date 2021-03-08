@@ -1,8 +1,7 @@
-import "./Navbar.scss";
-
 import Breadcrumbs from "./Breadcrumbs";
 import OptionsWidget from "./OptionsWidget";
 import BackupWidget from "./BackupWidget";
+import "./Navbar.scss";
 
 export default function Navbar(props) {
 	return (

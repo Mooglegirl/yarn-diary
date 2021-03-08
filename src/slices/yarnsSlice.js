@@ -6,7 +6,8 @@ import {
 	yarnEditModalSubmitted,
 	yarnDeleteModalSubmitted,
 	colorwayAddModalSubmitted,
-	tagsEditModalSubmitted
+	tagsEditModalSubmitted,
+	tagDeleteModalSubmitted
 } from "./modalsSlice";
 import {compareFuncs} from "../extras/utils";
 
@@ -40,6 +41,14 @@ const yarnsSlice = createSlice({
 				const yarn = state.entities[action.payload.yarnID];
 				yarn.tags = action.payload.tags;
 				yarn.lastUpdated = action.payload.timestamp;
+			}).addCase(tagDeleteModalSubmitted, (state, action) => {
+				const tagID = action.payload;
+				Object.keys(state.entities).forEach(yarnID => {
+					const yarn = state.entities[yarnID];
+					if(!yarn.tags) return;
+					const index = yarn.tags.indexOf(tagID);
+					if(index !== -1) yarn.tags.splice(index, 1);
+				});
 			});
 	}
 });

@@ -1,0 +1,15 @@
+.TagButton {
+	background-color: #e4effd;
+	border: 1px solid black;
+	border-radius: 50px;
+	color: black;
+	cursor: pointer;
+	margin-bottom: 8px;
+	margin-right: 8px;
+	padding: 6px 14px;
+
+	&:hover {
+		filter: brightness(110%);
+		text-decoration: none;
+	}
+}

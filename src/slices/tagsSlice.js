@@ -1,6 +1,6 @@
 import {createSlice, createEntityAdapter, createSelector} from "@reduxjs/toolkit";
 
-import {tagsEditModalSubmitted, tagMetaEditModalSubmitted} from "./modalsSlice";
+import {tagsEditModalSubmitted, tagMetaEditModalSubmitted, tagDeleteModalSubmitted} from "./modalsSlice";
 
 const tagsAdapter = createEntityAdapter();
 const initialState = tagsAdapter.getInitialState();
@@ -26,21 +26,20 @@ const tagsSlice = createSlice({
 
 				tagsAdapter.upsertMany(state, tagEntities);
 			})
-			.addCase(tagMetaEditModalSubmitted, tagsAdapter.updateOne);
+			.addCase(tagMetaEditModalSubmitted, tagsAdapter.updateOne)
+			.addCase(tagDeleteModalSubmitted, tagsAdapter.removeOne);
 	}
 });
 
 export default tagsSlice.reducer;
 
 export const {
-	selectEntities: selectTagEntities
+	selectEntities: selectTagEntities,
+	selectAll: selectAllTags
 } = tagsAdapter.getSelectors(state => state.tags);
 
-export const selectTagColorsByIDs = createSelector(
+export const selectTagColorByID = createSelector(
 	selectTagEntities,
-	(state, tagIDs) => tagIDs,
-	(tagEntities, tagIDs) => tagIDs.reduce((result, tagID) => {
-		result[tagID] = tagEntities[tagID].color;
-		return result;
-	}, {})
+	(state, tagID) => tagID,
+	(tagEntities, tagID) => tagEntities[tagID].color
 );

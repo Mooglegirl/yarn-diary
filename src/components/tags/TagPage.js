@@ -9,15 +9,17 @@ import PageWithSidebar from "../general/PageWithSidebar";
 import CardList from "../general/CardList";
 import YarnCard from "../yarns/YarnCard";
 import ColorwayCard from "../colorways/ColorwayCard";
-import TagMetaEditWidget from "../tags/TagMetaEditWidget";
+import TagMetaEditWidget from "./TagMetaEditWidget";
+import TagButton from "./TagButton";
+import TagDeleteWidget from "./TagDeleteWidget";
 
 export default function TagPage(props) {
 	const {tagID} = useParams();
 	const tag = useSelector(state => state.tags.entities[tagID]);
 	const is404 = tag === undefined;
 
-	const yarnIDs = useSelector(state => selectYarnIDsByTag(state, tag.id));
-	const colorwayIDs = useSelector(state => selectColorwayIDsByTag(state, tag.id));
+	const yarnIDs = useSelector(state => selectYarnIDsByTag(state, tag ? tag.id : null));
+	const colorwayIDs = useSelector(state => selectColorwayIDsByTag(state, tag ? tag.id : null));
 	const yarnDisplayMode = useSelector(state => state.yarns.displayMode);
 	const colorwayDisplayMode = useSelector(state => state.colorways.displayMode);
 
@@ -25,7 +27,7 @@ export default function TagPage(props) {
 		<div className="TagPage">
 			<PageWithSidebar
 				content={<>
-					<h2>Tag: {tagID}</h2>
+					<h2>Tag: <TagButton tagID={tag.id} /></h2>
 					{tag.comment && <Markdown>{tag.comment}</Markdown>}
 
 					<h3>Yarns:</h3>
@@ -43,7 +45,8 @@ export default function TagPage(props) {
 					</CardList>
 				</>}
 				sidebar={<>
-					<TagMetaEditWidget tag={tagID} />
+					<TagMetaEditWidget tagID={tagID} />
+					<TagDeleteWidget tagID={tagID} />
 				</>}
 			/>
 		</div>
