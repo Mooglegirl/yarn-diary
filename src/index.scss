@@ -87,6 +87,10 @@ h2, h3:first-child {
 
 p {
   margin-top: 0;
+
+  &:last-child {
+    margin-bottom: 0;
+  }
 }
 
 .comma-separate:not(:last-child):after {
@@ -104,4 +108,16 @@ ul, ol {
 .error {
   color: red !important;
   font-style: italic !important;
+}
+
+table {
+  border-collapse: collapse;
+  margin-bottom: 15px;
+
+  width: 100%;
+}
+
+td {
+  border: 1px solid gray;
+  padding: 8px;
 }

@@ -13,7 +13,8 @@ const modalsSlice = createSlice({
 		backupRestore: false,
 		tagsEdit: false,
 		tagMetaEdit: false,
-		tagDelete: false
+		tagDelete: false,
+		allTags: false
 	},
 	reducers: {
 		modalOpened(state, action) {
@@ -21,6 +22,9 @@ const modalsSlice = createSlice({
 		},
 		modalClosed(state, action) {
 			state[action.payload] = false;
+		},
+		allModalsClosed(state, action) {
+			Object.keys(state).forEach(modalName => state[modalName] = false); // set all to false
 		}
 	},
 	extraReducers: builder => {
@@ -34,7 +38,7 @@ const modalsSlice = createSlice({
 	}
 });
 
-export const {modalOpened, modalClosed} = modalsSlice.actions;
+export const {modalOpened, modalClosed, allModalsClosed} = modalsSlice.actions;
 export default modalsSlice.reducer;
 export const selectModalStateByName = (state, name) => state.modals[name];
 

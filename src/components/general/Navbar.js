@@ -1,6 +1,7 @@
 import Breadcrumbs from "./Breadcrumbs";
 import OptionsWidget from "./OptionsWidget";
 import BackupWidget from "./BackupWidget";
+import AllTagsWidget from "../tags/AllTagsWidget";
 import "./Navbar.scss";
 
 export default function Navbar(props) {
@@ -10,6 +11,7 @@ export default function Navbar(props) {
 				<Breadcrumbs />
 			</div>
 			<div className="Navbar__section">
+				<AllTagsWidget />
 				<BackupWidget />
 				<OptionsWidget />
 			</div>
