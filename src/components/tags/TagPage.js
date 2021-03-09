@@ -27,7 +27,7 @@ export default function TagPage(props) {
 		<div className="TagPage">
 			<PageWithSidebar
 				content={<>
-					<h2>Tag: <TagButton tagID={tag.id} /></h2>
+					<h2><TagButton tagID={tag.id} /></h2>
 					{tag.comment && <Markdown>{tag.comment}</Markdown>}
 
 					<h3>Yarns:</h3>

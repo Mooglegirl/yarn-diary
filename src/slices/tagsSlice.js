@@ -18,7 +18,7 @@ const tagsSlice = createSlice({
 					tagEntities.push({
 						id: tagName,
 						comment: state.entities[tagName] ? state.entities[tagName].comment : "",
-						color: state.entities[tagName] ? state.entities[tagName].color : ""
+						color: state.entities[tagName] ? state.entities[tagName].color : "#e4effd"
 					});
 
 					return tagEntities;
