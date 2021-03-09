@@ -2,6 +2,8 @@ import {useDispatch, useSelector} from "react-redux";
 import {useEffect, useRef} from "react";
 import {createPortal} from "react-dom";
 
+import Button from "./Button";
+
 import {modalClosed, selectModalStateByName} from "../../slices/modalsSlice";
 
 import "./Modal.scss";
@@ -38,7 +40,7 @@ export default function Modal(props) {
 			<div className="Modal__inner">
 				{options.showXButton && <div className="Modal__close" onClick={handleCloseClick}>&times;</div>}
 				{props.children}
-				{options.showOKButton && <button onClick={handleCloseClick}>{options.okButtonText}</button>}
+				{options.showOKButton && <Button handleClick={handleCloseClick}>{options.okButtonText}</Button>}
 			</div>
 		</div>
 	), elRef.current);
