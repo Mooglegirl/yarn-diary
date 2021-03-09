@@ -1,13 +1,24 @@
 import {useDispatch, useSelector} from "react-redux";
+import {useEffect, useRef} from "react";
+import {createPortal} from "react-dom";
 
 import {modalClosed, selectModalStateByName} from "../../slices/modalsSlice";
 
 import "./Modal.scss";
 
+// portal code repurposed from: https://medium.com/@jc_perez_ch/dynamic-react-portals-with-hooks-ddeb127fa516
 export default function Modal(props) {
 	const dispatch = useDispatch();
 	const modalName = props.modalName;
 	const isActive = useSelector(state => selectModalStateByName(state, modalName));
+
+	const elRef = useRef(document.createElement("div"));
+	useEffect(() => {
+		const el = elRef.current;
+		el.id = "modal_" + modalName;
+		if(isActive) document.body.appendChild(el);
+		return () => { if(isActive && el.parentElement) el.parentElement.removeChild(el); }
+	}, [modalName, isActive]);
 
 	const options = {
 		showOKButton: false,
@@ -19,9 +30,9 @@ export default function Modal(props) {
 
 	const handleCloseClick = () => {
 		dispatch(modalClosed(modalName));
-	}
+	};
 
-	return isActive && (
+	return isActive && createPortal((
 		<div className={`Modal ${props.className ? props.className : ""}`}>
 			<div className="Modal__overlay" onClick={options.closeOnOverlayClick ? handleCloseClick : undefined} />
 			<div className="Modal__inner">
@@ -30,5 +41,5 @@ export default function Modal(props) {
 				{options.showOKButton && <button onClick={handleCloseClick}>{options.okButtonText}</button>}
 			</div>
 		</div>
-	);
+	), elRef.current);
 }
