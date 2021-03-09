@@ -14,6 +14,7 @@ export default function AllTagsWidget(props) {
 	const dispatch = useDispatch();
 	const modalName = "allTags";
 	const tags = useSelector(selectAllTags);
+	tags.sort((a, b) => a.id.localeCompare(b.id));
 
 	return (
 		<div className="AllTagsWidget">

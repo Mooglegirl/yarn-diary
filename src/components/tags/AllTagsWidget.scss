@@ -5,6 +5,14 @@
 		max-width: calc(100vw - 50px);
 	}
 
+	table {
+		table-layout: fixed;
+	}
+
+	tr:first-child th:last-child {
+		width: 70%;
+	}
+
 	.TagButton {
 		margin-bottom: 0;
 	}
